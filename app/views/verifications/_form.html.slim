@@ -42,30 +42,30 @@
   
     / audits
     #audits.anchor.border.p-0.m-0.col-6
-      table#table.table.table-sm.table-striped.table-bordered.table-hover
-      thead
-        tr
-          th.text-center Code
-          th.text-center Issue
-          th.text-center Responsible
-          th.text-center Recorded
-          th.text-center Auditor
-          th.text-center Note
-          th.text-center data-orderable='false' Actions
+      = f.nested_fields_for :audits do |aud|
+        .col-auto.field
+          = aud.collection_select :mistake_id, Mistake.order(:abbr), :id, :abbr, hide_label: true, readonly: @readonly
+      / table#table.table.table-sm.table-striped.table-bordered.table-hover
+      / thead
+      /   tr
+      /     th.text-center Code
+      /     th.text-center Issue
+      /     th.text-center Responsible
+      /     th.text-center Recorded
+      /     th.text-center Auditor
+      /     th.text-center Note
+      /     th.text-center data-orderable='false' Actions
 
-      tbody
-        - @audits.each do |audit|
-          tr
-            td.text-center = audit.mistake.abbr
-            td.text-center = audit.issue
-            td.text-center = audit.responsible
-            td.text-center = l audit.recorded_on unless audit.recorded_on.nil?
-            td.text-center = audit.auditor
-            td.text-center
-              = link_to 'Destroy', audit, data: { confirm: 'Are you sure?' }, method: :delete, class: 'btn btn-sm btn-outline-danger'
-        / = f.fields_for :audits do |audit_form|
-        /   .col-auto.field
-        /     = audit_form.collection_select :mistake_id, Mistake.order(:abbr), :id, :abbr, hide_label: true, readonly: @readonly
+      / tbody
+      /   - @audits.each do |audit|
+      /     tr
+      /       td.text-center = audit.mistake.abbr
+      /       td.text-center = audit.issue
+      /       td.text-center = audit.responsible
+      /       td.text-center = l audit.recorded_on unless audit.recorded_on.nil?
+      /       td.text-center = audit.auditor
+      /       td.text-center
+      /         = link_to 'Destroy', audit, data: { confirm: 'Are you sure?' }, method: :delete, class: 'btn btn-sm btn-outline-danger'
 
   / section 1 - Employee Information
   #section1.form-row.anchor.border.collapse.pl-0.pr-0.col-6
@@ -122,7 +122,7 @@
           = f.check_box :pt, label: 'P/T Used?', readonly: @readonly
         .col-6.field
           = f.text_field :pt_full_name, label: 'Full Name (for older forms)', placeholder: 'Enter full name for older forms', readonly: @readonly
-        .col-sm-12.field
+        .col-12.field
           = f.text_field :pt_full_addr, label: 'Full Address (for older forms)', placeholder: 'Enter full address for older forms', readonly: @readonly
       .form-row.col-12
         .col-auto.field
@@ -146,7 +146,7 @@
   #section2.form-row.anchor.border.collapse.pl-0.pr-0.col-6
     .form-row.col-12
       h5.col-2.p-1.pt-4.text-center style='background-color: #C0C0C0' Section 2
-      .col-sm-10.field
+      .col-10.field
         = f.text_field :s2_hdr_full_name, label: 'Full Name (for older forms)', readonly: @readonly
     .form-row.col-12
       .col-3.field

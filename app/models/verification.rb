@@ -139,6 +139,7 @@ class Verification < ApplicationRecord
 
   has_many :ev_cases
   has_many :audits
+  accepts_nested_attributes_for :audits
 
   belongs_to :employee
   belongs_to :revision
@@ -148,8 +149,6 @@ class Verification < ApplicationRecord
   belongs_to :b1_doc, class_name: "DocumentType", foreign_key: "b1_doc_id"
   belongs_to :c1_doc, class_name: "DocumentType", foreign_key: "c1_doc_id"
   belongs_to :s3_doc, class_name: "DocumentType", foreign_key: "s3_doc_id"
-
-  accepts_nested_attributes_for :audits
 
   enumerize :cit_status, in: {usc: 1, non: 2, lpr: 3, aaw: 4}
 
