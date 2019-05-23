@@ -1,0 +1,58 @@
+= bootstrap_form_for @employee, layout: :vertical do |f|
+  - if @employee.errors.any?
+    #error_explanation
+      h2 = "#{pluralize(@employee.errors.count, "error")} prohibited this employee from being saved:"
+      ul
+        - @employee.errors.full_messages.each do |message|
+          li = message
+
+  / form separator
+  .w-100
+    hr.bg-info
+
+    #fields.form-row.anchor
+      .col-3.field
+        = f.collection_select :client_id, Client.order(:name), :id, :name, readonly: @readonly
+      .col-2.field
+        = f.text_field :batch, label: 'Batch', placeholder: 'Batch', readonly: @readonly
+      .col-7.field
+      .col-2.field
+        = f.text_field :first_name, label: 'First Name', placeholder: 'First', readonly: @readonly
+      .col-2.field
+        = f.text_field :last_name, label: 'Last Name', placeholder: 'Last', readonly: @readonly
+      .col-2.field
+        = f.text_field :middle_name, label: 'Middle Name', placeholder: 'Middle', readonly: @readonly
+      .col-6.field
+      .col-2.field
+        = f.text_field :ssn, label: 'SSN', placeholder: '000-00-0000', readonly: @readonly
+      .col-2.field
+        = f.date_field :born_on, label: 'Date of Birth', placeholder: 'MM/DD/YYYY', readonly: @readonly
+      .col-8.field
+      .col-2.field
+        = f.date_field :hired_on, label: 'Date of Hire', placeholder: 'MM/DD/YYYY', readonly: @readonly
+      .col-2.field
+        = f.text_field :co_profile, label: 'Company Employee ID', placeholder: 'company employee ID', readonly: @readonly
+      .col-8.field
+      .col-2.field
+        = f.text_field :title, readonly: @readonly
+      .col-2.field
+        = f.email_field :email, placeholder: 'person@example.com', readonly: @readonly
+
+  / form separator
+  .w-100
+    hr.bg-info
+  / submit or cancel
+  - if ! @readonly
+    .d-flex
+      .p-1
+        .actions = f.submit 'Save Changes', class: 'btn btn-success'
+      .p-1
+        = link_to 'Cancel', employees_path, class: 'btn btn-danger'
+      .p-1
+        = link_to 'Show', @employee, class: 'btn btn-primary'
+  - else
+    .d-flex
+      .p-1
+        = link_to 'Edit', edit_employee_path(@employee), class: 'btn btn-primary'
+      .p-1
+        = link_to 'Back to List', employees_path, class: 'btn btn-info'

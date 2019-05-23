@@ -1,0 +1,42 @@
+h1 Listing Users
+
+-if @users.empty?
+  br
+  | No data
+  p
+-else
+  = link_to 'New User', new_user_path, class: 'btn btn-success'
+  .p-2
+
+  table#table.table.table-sm.table-striped.table-bordered.table-hover
+    thead
+      tr
+        th.text-center Initials
+        th.text-center Full Name
+        th.text-center User Name
+        th.text-center Role
+        th.text-center data-orderable='false' Active?
+        th.text-center data-orderable='false' Actions
+
+    tbody
+      - @users.each do |user|
+        tr
+          td = user.initials
+          td = user.full_name
+          td = user.user_name
+          td = user.role.text
+          td.text-center = check_box_tag 'active', user.active, user.active, disabled: true
+          td.text-center
+            = link_to 'Show', user, class: 'btn btn-sm btn-info'
+            | &nbsp;
+            = link_to 'Edit', edit_user_path(user), class: 'btn btn-sm btn-primary'
+            | &nbsp;
+            = link_to 'Destroy', user, data: { confirm: 'Are you sure?' }, method: :delete, class: 'btn btn-sm btn-outline-danger'
+
+.p-1
+= link_to 'New User', new_user_path, class: 'btn btn-success'
+
+javascript:
+  $(document).ready(function() {
+    $("#table").dataTable();
+  });

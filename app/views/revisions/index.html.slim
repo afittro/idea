@@ -1,0 +1,38 @@
+h1 Listing I-9 Revisions
+
+-if @revisions.empty?
+  br
+  | No data
+  p
+-else
+  = link_to 'New Revision', new_revision_path, class: 'btn btn-success'
+  .p-2
+
+  table#table.table.table-sm.table-striped.table-bordered.table-hover
+    thead
+      tr
+        th.text-center Starts On
+        th.text-center Expires On
+        th.text-center data-orderable='false' Active?
+        th.text-center data-orderable='false' Actions
+
+    tbody
+      - @revisions.each do |revision|
+        tr
+          td.text-center = l revision.starts_on unless revision.starts_on.nil?
+          td.text-center = l revision.expires_on unless revision.expires_on.nil?
+          td.text-center = check_box_tag 'active', revision.active, revision.active, disabled: true
+          td.text-center
+            = link_to 'Show', revision, class: 'btn btn-sm btn-info'
+            | &nbsp;
+            = link_to 'Edit', edit_revision_path(revision), class: 'btn btn-sm btn-primary'
+            | &nbsp;
+            = link_to 'Destroy', revision, data: { confirm: 'Are you sure?' }, method: :delete, class: 'btn btn-sm btn-outline-danger'
+
+.p-1
+= link_to 'New Revision', new_revision_path, class: 'btn btn-success'
+
+javascript:
+  $(document).ready(function() {
+    $("#table").dataTable();
+  });

@@ -1,0 +1,44 @@
+h1 Listing Mistakes
+
+-if @mistakes.empty?
+  br
+  | No data
+  p
+-else
+  = link_to 'New Mistake', new_mistake_path, class: 'btn btn-success'
+  .p-2
+
+  table#table.table.table-sm.table-striped.table-bordered.table-hover
+    thead
+      tr
+        th.text-center Abbr
+        th.text-center Text
+        th.text-center data-orderable='false' Active?
+        th.text-center data-orderable='false' Correctable?
+        th.text-center Area
+        th.text-center Subarea
+        th.text-center data-orderable='false' Actions
+
+    tbody
+      - @mistakes.each do |mistake|
+        tr
+          td.text-center = mistake.abbr
+          td.text-center = mistake.text
+          td.text-center = check_box_tag 'active', mistake.active, mistake.active, disabled: true
+          td.text-center = check_box_tag 'correctable', mistake.correctable, mistake.correctable, disabled: true
+          td.text-center = mistake.area.text
+          td.text-center = mistake.subarea.text
+          td.text-center
+            = link_to 'Show', mistake, class: 'btn btn-sm btn-info'
+            | &nbsp;
+            = link_to 'Edit', edit_mistake_path(mistake), class: 'btn btn-sm btn-primary'
+            | &nbsp;
+            = link_to 'Destroy', mistake, data: { confirm: 'Are you sure?' }, method: :delete, class: 'btn btn-sm btn-outline-danger'
+
+.p-1
+= link_to 'New Mistake', new_mistake_path, class: 'btn btn-success'
+
+javascript:
+  $(document).ready(function() {
+    $("#table").dataTable();
+  });

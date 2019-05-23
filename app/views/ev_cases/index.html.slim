@@ -1,0 +1,52 @@
+h1 Listing E-Verify Cases
+
+-if @ev_cases.empty?
+  br
+  | No data
+  p
+-else
+  = link_to 'New Case', new_ev_case_path, class: 'btn btn-success', class: 'btn btn-success'
+  .p-2
+
+  table#table.table.table-sm.table-striped.table-bordered.table-hover
+    thead
+      tr
+        th.text-center I-9
+        th.text-center First name
+        th.text-center Last name
+        th.text-center Status
+        th.text-center Hired
+        th.text-center WAE
+        th.text-center Opened
+        th.text-center Closed
+        th.text-center Case #
+        th.text-center Result
+        th.text-center data-orderable='false' Actions
+
+    tbody
+      - @ev_cases.each do |ev_case|
+        tr
+          td.text-center = ev_case.verification.str
+          td.text-center = ev_case.first_name
+          td.text-center = ev_case.last_name
+          td.text-center = ev_case.cit_status.text
+          td.text-center = l ev_case.hired_on unless ev_case.hired_on.nil?
+          td.text-center = l ev_case.wae_on unless ev_case.wae_on.nil?
+          td.text-center = l ev_case.opened_on unless ev_case.opened_on.nil?
+          td.text-center = l ev_case.closed_on unless ev_case.closed_on.nil?
+          td.text-center = ev_case.case_num
+          td.text-center = ev_case.result
+          td.text-center
+            = link_to 'Show', ev_case, class: 'btn btn-sm btn-info'
+            | &nbsp;
+            = link_to 'Edit', edit_ev_case_path(ev_case), class: 'btn btn-sm btn-primary'
+            | &nbsp;
+            = link_to 'Destroy', ev_case, data: { confirm: 'Are you sure?' }, method: :delete, class: 'btn btn-sm btn-outline-danger'
+
+.p-1
+= link_to 'New Case', new_ev_case_path, class: 'btn btn-success', class: 'btn btn-success'
+
+javascript:
+  $(document).ready(function() {
+    $("#table").dataTable();
+  });

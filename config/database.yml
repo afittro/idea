@@ -1,0 +1,20 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  user_name: idea_app_user
+  password: <%= ENV['IDEA_DATABASE_PASSWORD'] %>
+  host: localhost
+  port: 5432
+
+development:
+  <<: *default
+  database: idea_development
+
+test:
+  <<: *default
+  database: idea_test
+
+production:
+  <<: *default
+  database: idea_production

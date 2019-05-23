@@ -1,0 +1,54 @@
+= bootstrap_form_for @list, layout: :vertical do |f|
+  - if @list.errors.any?
+    #error_explanation
+      h2 = "#{pluralize(@list.errors.count, "error")} prohibited this list item from being saved:"
+      ul
+        - @list.errors.full_messages.each do |message|
+          li = message
+
+  / form separator
+  .w-100
+    hr.bg-info
+
+    #fields.form-row.anchor
+      .col-sm-2.field
+        = f.text_field :name, readonly: @readonly
+      .col-sm-2.field
+        = f.text_field :item, readonly: @readonly
+      .col-sm-2.field
+        = f.text_field :payload1, label: 'Payload field 1', readonly: @readonly
+      .col-sm-2.field
+        = f.text_field :payload2, label: 'Payload field 2', readonly: @readonly
+      .col-sm-2.field
+        = f.text_field :payload3, label: 'Payload field 3', readonly: @readonly
+      .col-sm-2.field
+        = f.text_field :payload4, label: 'Payload field 4', readonly: @readonly
+      .col-sm-2.field
+        = f.text_field :payload5, label: 'Payload field 5', readonly: @readonly
+      .col-sm-2.field
+        = f.text_field :payload6, label: 'Payload field 6', readonly: @readonly
+      .col-sm-2.field
+        = f.text_field :payload7, label: 'Payload field 7', readonly: @readonly
+      .col-sm-2.field
+        = f.text_field :payload8, label: 'Payload field 8', readonly: @readonly
+      .col-sm-2.field
+        = f.text_field :payload9, label: 'Payload field 9', readonly: @readonly
+
+  / form separator
+  .w-100
+    hr.bg-info
+  / submit or cancel
+  - if ! @readonly
+    .d-flex
+      .p-1
+        .actions = f.submit 'Save Changes', class: 'btn btn-success'
+      .p-1
+        = link_to 'Cancel', lists_path, class: 'btn btn-danger'
+      .p-1
+        = link_to 'Show', @list, class: 'btn btn-primary'
+  - else
+    .d-flex
+      .p-1
+        = link_to 'Edit', edit_list_path(@list), class: 'btn btn-primary'
+      .p-1
+        = link_to 'Back to List', lists_path, class: 'btn btn-info'

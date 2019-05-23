@@ -1,0 +1,44 @@
+h1 Listing Document Types
+
+-if @document_types.empty?
+  br
+  | No data
+  p
+-else
+  = link_to 'New Document Type', new_document_type_path, class: 'btn btn-success'
+  .p-2
+
+  table#table.table.table-sm.table-striped.table-bordered.table-hover
+    thead
+      tr
+        th.text-center Code
+        th.text-center Name
+        th.text-center Abbr
+        th.text-center data-orderable='false' Active?
+        th.text-center data-orderable='false' EV?
+        th.text-center data-orderable='false' Rcpt?
+        th.text-center data-orderable='false' Actions
+
+    tbody
+      - @document_types.each do |document_type|
+        tr
+          td.text-center = document_type.code
+          td.text-center = document_type.name
+          td.text-center = document_type.abbr
+          td.text-center = check_box_tag 'active', document_type.active, document_type.active, disabled: true
+          td.text-center = check_box_tag 'ev', document_type.ev, document_type.ev, disabled: true
+          td.text-center = check_box_tag 'rcpt', document_type.rcpt, document_type.rcpt, disabled: true
+          td.text-center
+            = link_to 'Show', document_type, class: 'btn btn-sm btn-info'
+            | &nbsp;
+            = link_to 'Edit', edit_document_type_path(document_type), class: 'btn btn-sm btn-primary'
+            | &nbsp;
+            = link_to 'Destroy', document_type, data: { confirm: 'Are you sure?' }, method: :delete, class: 'btn btn-sm btn-outline-danger'
+
+.p-1
+= link_to 'New Document Type', new_document_type_path, class: 'btn btn-success'
+
+javascript:
+  $(document).ready(function() {
+    $("#table").dataTable();
+  });

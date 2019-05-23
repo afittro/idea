@@ -1,0 +1,11 @@
+en:
+  date:
+    formats:
+      default: '%m/%d/%y'
+  enumerize:
+    defaults:
+      cit_status:
+        usc: 'USC'
+        non: 'NON'
+        lpr: 'LPR'
+        aaw: 'AAW'

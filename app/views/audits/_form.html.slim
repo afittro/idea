@@ -1,0 +1,44 @@
+= bootstrap_form_for @audit, layout: :vertical do |f|
+  - if @audit.errors.any?
+    #error_explanation
+      h2 = "#{pluralize(@audit.errors.count, "error")} prohibited this audit from being saved:"
+      ul
+        - @audit.errors.full_messages.each do |message|
+          li = message
+
+  / form separator
+  .w-100
+    hr.bg-info
+
+    #fields.form-row.anchor
+      .col-sm-2.field
+        = f.collection_select :verification_id, Verification.order(:last_name, :first_name), :id, :str, readonly: @readonly
+      .col-sm-2.field
+        = f.collection_select :mistake_id, Mistake.all, :id, :abbr, readonly: @readonly
+      .col-sm-2.field
+        = f.select :issue, Audit.issue.options, readonly: @readonly
+      .col-sm-2.field
+        = f.select :responsible, Audit.responsible.options, label: 'Responsible Party', readonly: @readonly
+      .col-sm-2.field
+        = f.datetime_field :recorded_on, label: 'Date Recorded', readonly: @readonly
+      .col-sm-2.field
+        = f.text_field :auditor, readonly: @readonly
+
+  / form separator
+  .w-100
+    hr.bg-info
+  / submit or cancel
+  - if ! @readonly
+    .d-flex
+      .p-1
+        .actions = f.submit 'Save Changes', class: 'btn btn-success'
+      .p-1
+        = link_to 'Cancel', audits_path, class: 'btn btn-danger'
+      .p-1
+        = link_to 'Show', @audit, class: 'btn btn-primary'
+  - else
+    .d-flex
+      .p-1
+        = link_to 'Edit', edit_audit_path(@audit), class: 'btn btn-primary'
+      .p-1
+        = link_to 'Back to List', audits_path, class: 'btn btn-info'

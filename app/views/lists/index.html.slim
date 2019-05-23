@@ -1,0 +1,36 @@
+h1 Lists of Things
+
+-if @lists.empty?
+  br
+  | No data
+  p
+-else
+  = link_to 'New List', new_list_path, class: 'btn btn-success'
+  .p-2
+
+  table#table.table.table-sm.table-striped.table-bordered.table-hover
+    thead
+      tr
+        th.text-center Name
+        th.text-center Item
+        th.text-center data-orderable='false' Actions
+
+    tbody
+      - @lists.each do |list|
+        tr
+          td.text-center = list.name
+          td.text-center = list.item
+          td.text-center
+            = link_to 'Show', list, class: 'btn btn-sm btn-info'
+            | &nbsp;
+            = link_to 'Edit', edit_list_path(list), class: 'btn btn-sm btn-primary'
+            | &nbsp;
+            = link_to 'Destroy', list, data: { confirm: 'Are you sure?' }, method: :delete, class: 'btn btn-sm btn-outline-danger'
+
+.p-1
+= link_to 'New List', new_list_path, class: 'btn btn-success'
+
+javascript:
+  $(document).ready(function() {
+    $("#table").dataTable();
+  });
