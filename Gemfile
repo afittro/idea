@@ -39,9 +39,9 @@ gem "font-awesome-rails" # read: https://github.com/bokmann/font-awesome-rails
 gem 'kaminari' # pagination
 gem 'bootstrap4-kaminari-views' # to style kaminari pagination per Bootstrap theme
 gem "bootstrap_form", ">= 4.2.0" # read: https://github.com/bootstrap-ruby/bootstrap_form
-
-# sortable datatables and more
 gem 'jquery-datatables' # https://github.com/mkhairi/jquery-datatables
+
+gem 'nested_form'
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
