@@ -9,3 +9,29 @@ en:
         non: 'NON'
         lpr: 'LPR'
         aaw: 'AAW'
+  breadcrumbs:
+    application:
+      index: Home
+    audits:
+      index: Audits
+    clients:
+      index: Clients
+    document_types:
+      index: Doc Types
+    ev_cases:
+      index: EV Cases
+    employees:
+      index: Employees
+    lists:
+      index: Lists
+    mistakes:
+      index: Mistakes
+    revisions:
+      index: Revisions
+    settings:
+      index: Settings
+    users:
+      index: Users
+    verifications:
+      index: Verifications
+

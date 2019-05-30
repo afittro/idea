@@ -8,60 +8,76 @@ html
     = csp_meta_tag
     == stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload'
     == javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
+    / enables Semantic UI theming of DataTables
+    == javascript_include_tag 'https://cdn.datatables.net/1.10.19/js/dataTables.semanticui.min.js'
     / enables Excel button in tables, if in datatables dom
     == javascript_include_tag 'https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js'
     / enables PDF button in tables, if in datatables dom
     == javascript_include_tag 'https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js'
     == javascript_include_tag 'https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js'
+    javascript:
+      $(document)
+        .ready(function() {
+          $('.ui.menu .ui.dropdown').dropdown({
+            on: 'hover'
+          });
+          $('.ui.menu a.item')
+            .on('click', function() {
+              $(this)
+                .addClass('active')
+                .siblings()
+                .removeClass('active')
+              ;
+            })
+          ;
+        })
+      ;
+  body class="controller-#{controller_name}"
+    .ui.pointing.inverted.labeled.icon.menu style="background-color: #062f4f"
+      / .ui.seven.column.page.grid fix alignment with this back in after tabing it left one indent
+      .header.item
+        =link_to root_path
+          i.lightbulb.outline.yellow.big.icon
+      a.item href=clients_path class="item#{' active' if current_page?(clients_path)}"
+        i.chess.king.green.icon
+        | Clients
+      a.item href=employees_path class="item#{' active' if current_page?(employees_path)}"
+        i.id.card.teal.icon
+        | Employees
+      a.item href=verifications_path class="item#{' active' if current_page?(verifications_path)}"
+        i.edit.olive.icon
+        | Verifications
+      a.item href=audits_path class="item#{' active' if current_page?(audits_path)}"
+        i.balance.scale.brown.icon
+        | Audits
+      .ui.dropdown.item
+        | More
+        i.dropdown.icon
+        .transition.hidden.inverted.menu style='background-color: #062f4f'
+          = link_to 'Document Types', document_types_path, class: "ui item#{' active' if current_page?(document_types_path)}"
+          = link_to 'EV Cases',       ev_cases_path,       class: "ui item#{' active' if current_page?(ev_cases_path)}"
+          .divider.ui
+          = link_to 'Lists',     lists_path,     class: "ui item#{' active' if current_page?(lists_path)}"
+          = link_to 'Mistakes',  mistakes_path,  class: "ui item#{' active' if current_page?(mistakes_path)}"
+          = link_to 'Revisions', revisions_path, class: "ui item#{' active' if current_page?(revisions_path)}"
+          = link_to 'Settings',  settings_path,  class: "ui item#{' active' if current_page?(settings_path)}"
+          = link_to 'Users',     users_path,     class: "ui item#{' active' if current_page?(users_path)}"
+      .ui.inverted.labeled.icon.right.compact.vertical.menu style='background-color: #062f4f'
+        - if @current_user.admin?
+          a.item href=rails_admin_path
+            i.gamepad.red.big.icon
+            | #{current_user.user_name}
+        - elsif @current_user.lead?
+          a.item href=rails_admin_path
+            | #{current_user.user_name}
+            i.user.outline.orange.large.icon
+        - else
+          .item
+            | #{current_user.user_name}
+            i.user.outline.teal.large.icon
 
-  body class="controller-#{controller_name}" style='font-family:"Roboto Sans","Segoe UI","Helvetica Neue",Arial,sans-serif'
-    nav.navbar.navbar-expand-lg.navbar-light style='background-color: #062f4f'
-      .container-fluid
-        .logo
-          a.navbar-brand href="/" 
-            .fa.fa-lightbulb-o.fa-2x.text-warning
-              |  IDEA
-        .collapse.navbar-collapse
-          ul.navbar-nav.mr-auto
-            li.nav-item
-              = link_to 'Clients', clients_path, class: "nav-link text-warning #{'active' if current_page?(clients_path)}"
-            li.nav-item
-              =link_to 'Employees', employees_path, class: "nav-link text-warning #{'active' if current_page?(employees_path)}"
-            li.nav-item
-              =link_to 'Verifications', verifications_path, class: "nav-link text-warning #{'active' if current_page?(verifications_path)}"
-            li.nav-item
-              =link_to 'Audits', audits_path, class: "nav-link text-warning #{'active' if current_page?(audits_path)}"
-
-            li.nav-item.dropdown
-
-              a#navbarDropdown.nav-link.dropdown-toggle.text-warning href='#' role='button' data-toggle='dropdown' aria-haspopup='true' area-expanded='false' Other
-
-              .dropdown-menu aria-labelledby='navbarDropdown' style='background-color: #937666'
-
-                a.dropdown-item
-                  =link_to 'Document Types', document_types_path, class: "nav-link text-warning #{'active' if current_page?(document_types_path)}"
-                a.dropdown-item
-                  =link_to 'EV Cases', ev_cases_path, class: "nav-link text-warning #{'active' if current_page?(ev_cases_path)}"
-                a.dropdown-item
-                  =link_to 'Lists', lists_path, class: "nav-link text-warning #{'active' if current_page?(lists_path)}"
-                a.dropdown-item
-                  =link_to 'Mistakes', mistakes_path, class: "nav-link text-warning #{'active' if current_page?(mistakes_path)}"
-                a.dropdown-item
-                  =link_to 'Revisions', revisions_path, class: "nav-link text-warning #{'active' if current_page?(revisions_path)}"
-                a.dropdown-item
-                  =link_to 'Settings', settings_path, class: "nav-link text-warning #{'active' if current_page?(settings_path)}"
-                a.dropdown-item
-                  =link_to 'Users', users_path, class: "nav-link text-warning #{'active' if current_page?(users_path)}"
-        .user-section
-          a href="#{admin_path}"
-            span style='font-size:16px;font-family:"Roboto Sans","Helvetica Neue","Segoe UI",Arial,sans-serif' = " #{current_user.user_name}  "
-            i.fa.fa-user.text-warning
-    main.container-fluid style=("min-height: 500px;") 
+    main.ui.container
+      = semantic_breadcrumbs
       = yield
-    footer.container-fluid.footer
-      nav.navbar.d-flex
-        ul
-          li ABOUT US
-          li = mail_to "andrew@fittro.org", "SUPPORT", :replace_at => "_at_", :replace_dot => "_dot_", :class => "email", :subject => "IDEA Support"
-          li PRIVACY
-        p &copy;#{Date.today.year} Andrew Fittro
+    footer.ui.page.one.column.footer
+      p &copy;#{Date.today.year} Andrew Fittro

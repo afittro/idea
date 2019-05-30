@@ -33,12 +33,10 @@ gem 'rails_admin_toggleable'
 gem 'rails_admin_selectable'
 gem 'rails_admin_charts'
 
-# Bootstrap 4 + jQuery DataTables
-gem 'bootstrap', '~> 4.3.1' # read: https://github.com/twbs/bootstrap-rubygem
-gem "font-awesome-rails" # read: https://github.com/bokmann/font-awesome-rails
+# Semantic UI + jQuery DataTables
+gem 'semantic-ui-rails'
+gem 'semantic-ui-sass'
 gem 'kaminari' # pagination
-gem 'bootstrap4-kaminari-views' # to style kaminari pagination per Bootstrap theme
-gem "bootstrap_form", ">= 4.2.0" # read: https://github.com/bootstrap-ruby/bootstrap_form
 
 # sortable datatables and more
 gem 'jquery-datatables' # https://github.com/mkhairi/jquery-datatables

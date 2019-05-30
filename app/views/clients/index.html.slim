@@ -5,35 +5,34 @@ h1 Listing Clients
   | No data
   p
 -else
-  = link_to 'New Client', new_client_path, class: 'btn btn-success'
-  .p-2
-
-  table#table.table.table-sm.table-striped.table-bordered.table-hover
+  table#table.ui.striped.sortable.selectable.celled.very.compact.green.table
 
     thead
       tr
-        th.text-center Name
-        th.text-center Full Name
-        th.text-center Alternates
-        th.text-center data-orderable='false' Active?
-        th.text-center data-orderable='false' Actions
+        th.center.aligned Name
+        th.center.aligned Full Name
+        th.center.aligned Alternates
+        th.center.aligned data-orderable='false' Active?
+        th.center.aligned data-orderable='false' Actions
 
     tbody
       - @clients.each do |client|
         tr
-          td.text-center = client.name
+          td.center.aligned = client.name
           td = client.full_name
           td = client.alternate_names
-          td.text-center = check_box_tag 'active', client.active, client.active, disabled: true
-          td.text-center
-            = link_to 'Show', client, class: 'btn btn-sm btn-info'
-            | &nbsp;
-            = link_to 'Edit', edit_client_path(client), class: 'btn btn-sm btn-primary'
-            | &nbsp;
-            = link_to 'Destroy', client, data: { confirm: 'Are you sure?' }, method: :delete, class: 'btn btn-sm btn-outline-danger'
-
-.p-1
-= link_to 'New Client', new_client_path, class: 'btn btn-success', class: 'btn btn-success'
+          td.center.aligned = check_box_tag 'active', client.active, client.active, disabled: true
+          td.center.aligned.four.wide
+            = link_to 'Show', client, class: 'ui mini teal button'
+            = link_to 'Edit', edit_client_path(client), class: 'ui mini primary button'
+            = link_to 'Destroy', client, data: { confirm: 'Are you sure?' }, method: :delete, class: 'ui mini brown button'
+    tfoot.full-width
+      tr
+        th colspan='5'
+          a.ui.right.floated.small.violet.animated.vertical.button href=new_client_path
+            .visible.content Add Client
+            .hidden.content
+              i.plus.arrow.icon
 
 javascript:
   $(document).ready(function() {

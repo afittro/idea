@@ -1,5 +1,6 @@
 class VerificationsController < ApplicationController
   before_action :set_verification, only: [:show, :edit, :update, :destroy]
+  semantic_breadcrumb :index, :verifications_path
 
   # GET /verifications
   # GET /verifications.json

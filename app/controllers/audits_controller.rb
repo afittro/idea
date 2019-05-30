@@ -1,5 +1,6 @@
 class AuditsController < ApplicationController
   before_action :set_audit, only: [:show, :edit, :update, :destroy]
+  semantic_breadcrumb :index, :audits_path
 
   # GET /audits
   # GET /audits.json
