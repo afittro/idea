@@ -17,14 +17,14 @@ require 'datatables/extensions/Responsive/dataTables.responsive'
 # require 'datatables/extensions/Scroller/dataTables.scroller'
 # require 'datatables/extensions/Select/dataTables.select'
 
-# require 'datatables/dataTables.bootstrap4'
-# require 'datatables/extensions/AutoFill/autoFill.bootstrap4'
-# require 'datatables/extensions/Buttons/buttons.bootstrap4'
-# require 'datatables/extensions/Responsive/responsive.bootstrap4'
+require 'datatables/dataTables.semanticui'
+# require 'datatables/extensions/AutoFill/autoFill.semanticui'
+require 'datatables/extensions/Buttons/buttons.semanticui'
+require 'datatables/extensions/Responsive/responsive.semanticui'
 
 # Global setting and initializer
 `$.extend( $.fn.dataTable.defaults, {
-  dom: "<'row'<'col-6'f><'col-6'i>><'row'<'col-12'tr>><'row'<'col-4'l><'col-4'B><'col-4'p>>",
+  dom: "<'ui grid'<'eight wide middle aligned column'f><'four wide middle aligned column'i><'four wide middle right aligned column'l>><<'twelve wide column'tr>><'ui grid'<'six wide column'B><'ten wide right aligned column'p>>",
   responsive: true,
   pagingType: 'full_numbers',
   buttons: [ // skip actions column

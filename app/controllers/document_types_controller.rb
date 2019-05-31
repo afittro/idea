@@ -1,5 +1,6 @@
 class DocumentTypesController < ApplicationController
   before_action :set_document_type, only: [:show, :edit, :update, :destroy]
+  semantic_breadcrumb :index, :document_types_path
 
   # GET /document_types
   # GET /document_type.json

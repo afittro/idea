@@ -5,18 +5,16 @@ h1 Listing Users
   | No data
   p
 -else
-  = link_to 'New User', new_user_path, class: 'btn btn-success'
-  .p-2
+  table#table.ui.striped.sortable.selectable.celled.very.compact.purple.table
 
-  table#table.table.table-sm.table-striped.table-bordered.table-hover
     thead
       tr
-        th.text-center Initials
-        th.text-center Full Name
-        th.text-center User Name
-        th.text-center Role
-        th.text-center data-orderable='false' Active?
-        th.text-center data-orderable='false' Actions
+        th.center.aligned Initials
+        th.center.aligned Full Name
+        th.center.aligned User Name
+        th.center.aligned Role
+        th.center.aligned data-orderable='false' Active?
+        th.center.aligned data-orderable='false' Actions
 
     tbody
       - @users.each do |user|
@@ -25,16 +23,18 @@ h1 Listing Users
           td = user.full_name
           td = user.user_name
           td = user.role.text
-          td.text-center = check_box_tag 'active', user.active, user.active, disabled: true
-          td.text-center
-            = link_to 'Show', user, class: 'btn btn-sm btn-info'
-            | &nbsp;
-            = link_to 'Edit', edit_user_path(user), class: 'btn btn-sm btn-primary'
-            | &nbsp;
-            = link_to 'Destroy', user, data: { confirm: 'Are you sure?' }, method: :delete, class: 'btn btn-sm btn-outline-danger'
-
-.p-1
-= link_to 'New User', new_user_path, class: 'btn btn-success'
+          td.center.aligned = check_box_tag 'active', user.active, user.active, disabled: true
+          td.center.aligned.four.wide
+            = link_to 'Show', user, class: 'ui mini teal button'
+            = link_to 'Edit', edit_user_path(user), class: 'ui mini primary button'
+            = link_to 'Destroy', user, data: { confirm: 'Are you sure?' }, method: :delete, class: 'ui mini brown button'
+    tfoot.full-width
+      tr
+        th colspan='6'
+          a.ui.right.floated.small.violet.animated.vertical.button href=new_user_path
+            .visible.content Add User
+            .hidden.content
+              i.plus.arrow.icon
 
 javascript:
   $(document).ready(function() {

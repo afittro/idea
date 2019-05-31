@@ -1,5 +1,6 @@
 class EmployeesController < ApplicationController
   before_action :set_employee, only: [:show, :edit, :update, :destroy]
+  semantic_breadcrumb :index, :employees_path
 
   # GET /employees
   # GET /employees.json

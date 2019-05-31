@@ -1,5 +1,6 @@
 class EvCasesController < ApplicationController
   before_action :set_ev_case, only: [:show, :edit, :update, :destroy]
+  semantic_breadcrumb :index, :ev_cases_path
 
   # GET /ev_cases
   # GET /ev_cases.json

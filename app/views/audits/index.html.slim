@@ -5,45 +5,40 @@ h1 Listing Audits
   | No data
   p
 -else
-  = link_to 'New Audit', new_audit_path, class: 'btn btn-success'
-  .p-2
+  table#table.ui.striped.sortable.selectable.celled.very.compact.brown.table
 
-  table#table.table.table-sm.table-striped.table-bordered.table-hover
     thead
       tr
-        th.text-center Verification
-        th.text-center Mistake
-        th.text-center Issue
-        th.text-center Responsible
-        th.text-center Recorded On
-        th.text-center Auditor
-        th.text-center data-orderable='false' Actions
+        th.center.aligned Verification
+        th.center.aligned Mistake
+        th.center.aligned Issue
+        th.center.aligned Responsible
+        th.center.aligned Recorded On
+        th.center.aligned Auditor
+        th.center.aligned data-orderable='false' Actions
 
     tbody
       - @audits.each do |audit|
         tr
-          td.text-center = audit.verification.str
-          td.text-center = audit.mistake.text
-          td.text-center = audit.issue.text
-          td.text-center = audit.responsible.text
-          td.text-center = l audit.recorded_on unless audit.recorded_on.nil?
-          td.text-center = audit.auditor
-          td.text-center
-            = link_to 'Show', audit, class: 'btn btn-sm btn-info'
-            | &nbsp;
-            = link_to 'Edit', edit_audit_path(audit), class: 'btn btn-sm btn-primary'
-            | &nbsp;
-            = link_to 'Destroy', audit, data: { confirm: 'Are you sure?' }, method: :delete, class: 'btn btn-sm btn-outline-danger'
-
-.p-1
-= link_to 'New Audit', new_audit_path, class: 'btn btn-success'
+          td.center.aligned = audit.verification.str
+          td.center.aligned = audit.mistake.text
+          td.center.aligned = audit.issue.text
+          td.center.aligned = audit.responsible.text
+          td.center.aligned = l audit.recorded_on unless audit.recorded_on.nil?
+          td.center.aligned = audit.auditor
+          td.center.aligned.four.wide
+            = link_to 'Show', audit, class: 'ui mini teal button'
+            = link_to 'Edit', edit_audit_path(audit), class: 'ui mini primary button'
+            = link_to 'Destroy', audit, data: { confirm: 'Are you sure?' }, method: :delete, class: 'ui mini brown button'
+    tfoot.full-width
+      tr
+        th colspan='7'
+          a.ui.right.floated.small.violet.animated.vertical.button href=new_audit_path
+            .visible.content Add Audit
+            .hidden.content
+              i.plus.arrow.icon
 
 javascript:
   $(document).ready(function() {
     $("#table").dataTable();
   });
-
-/ opal:
-/   Document.ready? do
-/     Element.find('#table').dataTable()
-/   end

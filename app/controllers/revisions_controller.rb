@@ -1,5 +1,6 @@
 class RevisionsController < ApplicationController
   before_action :set_revision, only: [:show, :edit, :update, :destroy]
+  semantic_breadcrumb :index, :revisions_path
 
   # GET /revisions
   # GET /revisions.json

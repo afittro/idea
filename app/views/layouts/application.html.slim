@@ -8,11 +8,7 @@ html
     = csp_meta_tag
     == stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload'
     == javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
-    / enables Semantic UI theming of DataTables
-    == javascript_include_tag 'https://cdn.datatables.net/1.10.19/js/dataTables.semanticui.min.js'
-    / enables Excel button in tables, if in datatables dom
-    == javascript_include_tag 'https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js'
-    / enables PDF button in tables, if in datatables dom
+    / enables PDF button in tables, if in datatables dom (no gem exists)
     == javascript_include_tag 'https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js'
     == javascript_include_tag 'https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js'
     javascript:

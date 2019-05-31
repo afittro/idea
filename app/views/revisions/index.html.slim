@@ -5,32 +5,32 @@ h1 Listing I-9 Revisions
   | No data
   p
 -else
-  = link_to 'New Revision', new_revision_path, class: 'btn btn-success'
-  .p-2
+  table#table.ui.striped.sortable.selectable.celled.very.compact.purple.table
 
-  table#table.table.table-sm.table-striped.table-bordered.table-hover
     thead
       tr
-        th.text-center Starts On
-        th.text-center Expires On
-        th.text-center data-orderable='false' Active?
-        th.text-center data-orderable='false' Actions
+        th.center.aligned Starts On
+        th.center.aligned Expires On
+        th.center.aligned data-orderable='false' Active?
+        th.center.aligned data-orderable='false' Actions
 
     tbody
       - @revisions.each do |revision|
         tr
-          td.text-center = l revision.starts_on unless revision.starts_on.nil?
-          td.text-center = l revision.expires_on unless revision.expires_on.nil?
-          td.text-center = check_box_tag 'active', revision.active, revision.active, disabled: true
-          td.text-center
-            = link_to 'Show', revision, class: 'btn btn-sm btn-info'
-            | &nbsp;
-            = link_to 'Edit', edit_revision_path(revision), class: 'btn btn-sm btn-primary'
-            | &nbsp;
-            = link_to 'Destroy', revision, data: { confirm: 'Are you sure?' }, method: :delete, class: 'btn btn-sm btn-outline-danger'
-
-.p-1
-= link_to 'New Revision', new_revision_path, class: 'btn btn-success'
+          td.center.aligned = l revision.starts_on unless revision.starts_on.nil?
+          td.center.aligned = l revision.expires_on unless revision.expires_on.nil?
+          td.center.aligned = check_box_tag 'active', revision.active, revision.active, disabled: true
+          td.center.aligned.four.wide
+            = link_to 'Show', revision, class: 'ui mini teal button'
+            = link_to 'Edit', edit_revision_path(revision), class: 'ui mini primary button'
+            = link_to 'Destroy', revision, data: { confirm: 'Are you sure?' }, method: :delete, class: 'ui mini brown button'
+    tfoot.full-width
+      tr
+        th colspan='4'
+          a.ui.right.floated.small.violet.animated.vertical.button href=new_revision_path
+            .visible.content Add Revision
+            .hidden.content
+              i.plus.arrow.icon
 
 javascript:
   $(document).ready(function() {

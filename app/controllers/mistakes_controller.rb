@@ -1,5 +1,6 @@
 class MistakesController < ApplicationController
   before_action :set_mistake, only: [:show, :edit, :update, :destroy]
+  semantic_breadcrumb :index, :mistakes_path
 
   # GET /mistakes
   # GET /mistakes.json

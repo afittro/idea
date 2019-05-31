@@ -1,5 +1,6 @@
 class SettingsController < ApplicationController
   before_action :set_setting, only: [:show, :edit, :update, :destroy]
+  semantic_breadcrumb :index, :settings_path
 
   # GET /settings
   # GET /settings.json

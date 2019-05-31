@@ -5,12 +5,6 @@ class ClientsView
   end
 
   def setup
-    on(:click, 'a', &method(:link_clicked))
-  end
-
-  def link_clicked(event)
-    event.prevent
-    puts "Hello! (You just clicked on a link: #{event.current_target.text})"
   end
 
 

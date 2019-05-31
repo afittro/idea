@@ -48,29 +48,29 @@
       / table#table.table.table-sm.table-striped.table-bordered.table-hover
       / thead
       /   tr
-      /     th.text-center Code
-      /     th.text-center Issue
-      /     th.text-center Responsible
-      /     th.text-center Recorded
-      /     th.text-center Auditor
-      /     th.text-center Note
-      /     th.text-center data-orderable='false' Actions
+      /     th.center.aligned Code
+      /     th.center.aligned Issue
+      /     th.center.aligned Responsible
+      /     th.center.aligned Recorded
+      /     th.center.aligned Auditor
+      /     th.center.aligned Note
+      /     th.center.aligned data-orderable='false' Actions
 
       / tbody
       /   - @audits.each do |audit|
       /     tr
-      /       td.text-center = audit.mistake.abbr
-      /       td.text-center = audit.issue
-      /       td.text-center = audit.responsible
-      /       td.text-center = l audit.recorded_on unless audit.recorded_on.nil?
-      /       td.text-center = audit.auditor
-      /       td.text-center
+      /       td.center.aligned = audit.mistake.abbr
+      /       td.center.aligned = audit.issue
+      /       td.center.aligned = audit.responsible
+      /       td.center.aligned = l audit.recorded_on unless audit.recorded_on.nil?
+      /       td.center.aligned = audit.auditor
+      /       td.center.aligned
       /         = link_to 'Destroy', audit, data: { confirm: 'Are you sure?' }, method: :delete, class: 'btn btn-sm btn-outline-danger'
 
   / section 1 - Employee Information
   #section1.form-row.anchor.border.collapse.pl-0.pr-0.col-6
     .form-row.col-12
-      h5.col-2.p-1.pt-4.text-center style='background-color: #C0C0C0' Section 1
+      h5.col-2.p-1.pt-4.center.aligned style='background-color: #C0C0C0' Section 1
       .col-6.field
         = f.text_field :addr, label: 'Address', placeholder: 'Residential Street Address', readonly: @readonly
       .col-auto.field
@@ -94,7 +94,7 @@
       .col-auto.field
     / section 1 - Employee Certification
     #section1EmpCert.form-row.anchor.pl-0.pr-0.border.border-primary.ml-0.mr-0
-      h5.col-2.p-1.pt-3.bg-primary.text-light.text-center Employee <br/> Certification
+      h5.col-2.p-1.pt-3.bg-primary.text-light.center.aligned Employee <br/> Certification
       .col-auto.field
         = f.select :cit_status, Verification.cit_status.options, label: 'Status', readonly: @readonly
       .col-auto.field.pl-4.pt-4
@@ -117,7 +117,7 @@
     / section 1 - PT Information
     #section1PT.form-row.anchor.pl-0.pr-0.ml-0.mr-0
       .form-row.col-12
-        h5.col-2.p-1.pt-4.text-center style='background-color: #C0C0C0' P/T Section
+        h5.col-2.p-1.pt-4.center.aligned style='background-color: #C0C0C0' P/T Section
         .col-auto.field.pl-4.pt-4
           = f.check_box :pt, label: 'P/T Used?', readonly: @readonly
         .col-6.field
@@ -145,7 +145,7 @@
   / section 2 - Documents
   #section2.form-row.anchor.border.collapse.pl-0.pr-0.col-6
     .form-row.col-12
-      h5.col-2.p-1.pt-4.text-center style='background-color: #C0C0C0' Section 2
+      h5.col-2.p-1.pt-4.center.aligned style='background-color: #C0C0C0' Section 2
       .col-10.field
         = f.text_field :s2_hdr_full_name, label: 'Full Name (for older forms)', readonly: @readonly
     .form-row.col-12
@@ -159,7 +159,7 @@
         = f.text_field :s2_hdr_testify_num, label: 'Status', readonly: @readonly
       .form-row.border.ml-0.mr-0
         .form-row.col-12
-          h5.col-1.p-1.pt-4.text-center.bg-gradient-danger.text-white List A
+          h5.col-1.p-1.pt-4.center.aligned.bg-gradient-danger.text-white List A
           .col-4.field
             = f.collection_select :a1_doc_id, DocumentType.order(:name), :id, :name, label: 'A1 Type', readonly: @readonly
           .col-3.field
@@ -193,7 +193,7 @@
           .col-auto.field
             = f.date_field :a3_doc_expires_on, label: 'A3 Expires', readonly: @readonly
       .form-row.border.pl-0.pr-0.ml-0.mr-0
-        h5.col-1.p-1.pt-4.text-center.bg-gradient-success.text-white List B
+        h5.col-1.p-1.pt-4.center.aligned.bg-gradient-success.text-white List B
         .col-auto.field
           = f.collection_select :b1_doc_id, DocumentType.order(:name), :id, :name, readonly: @readonly
         .col-auto.field
@@ -205,7 +205,7 @@
         .col-auto.field
           = f.date_field :b1_doc_expires_on, label: 'B1 Expires', readonly: @readonly
       .form-row.border.pl-0.pr-0.ml-0.mr-0
-        h5.col-1.p-1.pt-4.text-center.bg-gradient-warning.text-dark List C
+        h5.col-1.p-1.pt-4.center.aligned.bg-gradient-warning.text-dark List C
         .col-auto.field
           = f.collection_select :c1_doc_id, DocumentType.order(:name), :id, :name, readonly: @readonly
         .col-auto.field
@@ -220,7 +220,7 @@
           = f.text_area :doc_added_info, label: 'Additional Information', readonly: @readonly
     / section 2 - Employer Certification
     #section2EmpCert.form-row.anchor.pl-0.pr-0.border.border-warning.ml-0.mr-0
-      h5.col-2.p-1.pt-3.bg-info.text-light.text-center Employer Certification
+      h5.col-2.p-1.pt-3.bg-info.text-light.center.aligned Employer Certification
       .col-auto.field
         = f.date_field :hired_on, readonly: @readonly
       .col-auto.field
@@ -250,7 +250,7 @@
   / section 3
   #section3.form-row.anchor.border.collapse.pl-0.pr-0.col-6
     .form-row.col-12
-      h5.col-2.p-1.pt-4.text-center style='background-color: #C0C0C0' Section 3
+      h5.col-2.p-1.pt-4.center.aligned style='background-color: #C0C0C0' Section 3
       .col-4.field
         = f.text_field :s3_new_name, label: 'New Name', placeholder: 'Enter new Employee name', readonly: @readonly
       .col-auto.field

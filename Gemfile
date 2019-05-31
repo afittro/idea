@@ -40,6 +40,7 @@ gem 'kaminari' # pagination
 
 # sortable datatables and more
 gem 'jquery-datatables' # https://github.com/mkhairi/jquery-datatables
+gem 'jszip-rails' # for excel export from datatables
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]

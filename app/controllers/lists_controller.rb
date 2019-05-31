@@ -1,5 +1,6 @@
 class ListsController < ApplicationController
   before_action :set_list, only: [:show, :edit, :update, :destroy]
+  semantic_breadcrumb :index, :lists_path
 
   # GET /lists
   # GET /lists.json

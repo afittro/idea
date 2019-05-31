@@ -5,40 +5,40 @@ h1 Listing Employees
   | No data
   p
 -else
-  = link_to 'New Employee', new_employee_path, class: 'btn btn-success'
-  .p-2
+  table#table.ui.striped.sortable.selectable.celled.very.compact.teal.table
 
-  table#table.table.table-sm.table-striped.table-bordered.table-hover
     thead
       tr
-        th.text-center First
-        th.text-center Last
-        th.text-center Middle
-        th.text-center SSN
-        th.text-center Born
-        th.text-center Hired
-        th.text-center Client
-        th.text-center data-orderable='false' Actions
+        th.center.aligned First
+        th.center.aligned Last
+        th.center.aligned Middle
+        th.center.aligned SSN
+        th.center.aligned Born
+        th.center.aligned Hired
+        th.center.aligned Client
+        th.center.aligned data-orderable='false' Actions
 
     tbody
       - @employees.each do |employee|
         tr
-          td.text-center = employee.first_name
-          td.text-center = employee.last_name
-          td.text-center = employee.middle_name
-          td.text-center = employee.ssn
-          td.text-center = l employee.born_on unless employee.born_on.nil?
-          td.text-center = l employee.hired_on unless employee.hired_on.nil?
-          td.text-center = employee.client.str
-          td.text-center
-            = link_to 'Show', employee, class: 'btn btn-sm btn-info'
-            | &nbsp;
-            = link_to 'Edit', edit_employee_path(employee), class: 'btn btn-sm btn-primary'
-            | &nbsp;
-            = link_to 'Destroy', employee, data: { confirm: 'Are you sure?' }, method: :delete, class: 'btn btn-sm btn-outline-danger'
-
-.p-1
-= link_to 'New Employee', new_employee_path, class: 'btn btn-success'
+          td.center.aligned = employee.first_name
+          td.center.aligned = employee.last_name
+          td.center.aligned = employee.middle_name
+          td.center.aligned = employee.ssn
+          td.center.aligned = l employee.born_on unless employee.born_on.nil?
+          td.center.aligned = l employee.hired_on unless employee.hired_on.nil?
+          td.center.aligned = employee.client.str
+          td.center.aligned.four.wide
+            = link_to 'Show', employee, class: 'ui mini teal button'
+            = link_to 'Edit', edit_employee_path(employee), class: 'ui mini primary button'
+            = link_to 'Destroy', employee, data: { confirm: 'Are you sure?' }, method: :delete, class: 'ui mini brown button'
+    tfoot.full-width
+      tr
+        th colspan='8'
+          a.ui.right.floated.small.violet.animated.vertical.button href=new_employee_path
+            .visible.content Add Employee
+            .hidden.content
+              i.plus.arrow.icon
 
 javascript:
   $(document).ready(function() {

@@ -5,42 +5,42 @@ h1 Listing Verifications
   | No data
   p
 -else
-  = link_to 'New Verification', new_verification_path, class: 'btn btn-success'
-  .p-2
+  table#table.ui.striped.sortable.selectable.celled.very.compact.olive.table
 
-  table#table.table.table-sm.table-striped.table-bordered.table-hover.align-self-center
     thead
       tr
-        th.text-center Employee
-        th.text-center Barcode
-        th.text-center S1
-        th.text-center S2
-        th.text-center S3
-        th.text-center Status
-        th.text-center WAE
-        th.text-center Hired
-        th.text-center data-orderable='false' Actions
+        th.center.aligned Employee
+        th.center.aligned Barcode
+        th.center.aligned S1
+        th.center.aligned S2
+        th.center.aligned S3
+        th.center.aligned Status
+        th.center.aligned WAE
+        th.center.aligned Hired
+        th.center.aligned data-orderable='false' Actions
 
     tbody
       - @verifications.each do |verification|
         tr
           td = verification.employee.str
-          td.text-center = verification.barcode
-          td.text-center = l verification.s1_signed_on unless verification.s1_signed_on.nil?
-          td.text-center = l verification.s2_signed_on unless verification.s2_signed_on.nil?
-          td.text-center = l verification.s3_signed_on unless verification.s3_signed_on.nil?
-          td.text-center = verification.cit_status.text
-          td.text-center = l verification.wae_on unless verification.wae_on.nil?
-          td.text-center = l verification.hired_on unless verification.hired_on.nil?
-          td.text-center
-            = link_to 'Show', verification, class: 'btn btn-sm btn-info'
-            | &nbsp;
-            = link_to 'Edit', edit_verification_path(verification), class: 'btn btn-sm btn-primary'
-            | &nbsp;
-            = link_to 'Destroy', verification, data: { confirm: 'Are you sure?' }, method: :delete, class: 'btn btn-sm btn-outline-danger'
-
-.p-1
-= link_to 'New Verification', new_verification_path, class: 'btn btn-success'
+          td.center.aligned = verification.barcode
+          td.center.aligned = l verification.s1_signed_on unless verification.s1_signed_on.nil?
+          td.center.aligned = l verification.s2_signed_on unless verification.s2_signed_on.nil?
+          td.center.aligned = l verification.s3_signed_on unless verification.s3_signed_on.nil?
+          td.center.aligned = verification.cit_status.text
+          td.center.aligned = l verification.wae_on unless verification.wae_on.nil?
+          td.center.aligned = l verification.hired_on unless verification.hired_on.nil?
+          td.center.aligned.four.wide
+            = link_to 'Show', verification, class: 'ui mini teal button'
+            = link_to 'Edit', edit_verification_path(verification), class: 'ui mini primary button'
+            = link_to 'Destroy', verification, data: { confirm: 'Are you sure?' }, method: :delete, class: 'ui mini brown button'
+    tfoot.full-width
+      tr
+        th colspan='9'
+          a.ui.right.floated.small.violet.animated.vertical.button href=new_verification_path
+            .visible.content Add Verification
+            .hidden.content
+              i.plus.arrow.icon
 
 javascript:
   $(document).ready(function() {
