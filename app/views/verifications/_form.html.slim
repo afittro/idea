@@ -30,7 +30,6 @@
         .ui.labeled.input
           .ui.label Barcode
           = f.text_field :barcode, maxlength: 8, readonly: @readonly
-            .field.four.columns.wide
       .three.wide.field
         .required.ui.labeled.input
           .ui.label Batch
@@ -53,8 +52,7 @@
         .ui.labeled.input
           .ui.label Other Name
           = f.text_field :other_name, readonly: @readonly
-  .six.columns.wide
-    = render @audits
+
   #section1.ui.styled.accordion
     .title
       i.dropdown.icon Section 1
