@@ -1,4 +1,6 @@
-= bootstrap_form_for @client, layout: :vertical do |f|
+.ui.divider
+
+= form_for @client, html: {class: 'ui form segment raised'} do |f|
   - if @client.errors.any?
     #error_explanation
       h2 = "#{pluralize(@client.errors.count, "error")} prohibited this client from being saved:"
@@ -6,35 +8,32 @@
         - @client.errors.full_messages.each do |message|
           li = message
 
-  / form separator
-  .w-100
-    hr.bg-info
+  .two.fields
+    .required.field.four.wide.column
+      .ui.labeled.input
+        .ui.label Client Name
+        = f.text_field :name, readonly: @readonly
+    .inline.field.two.wide.middle.aligned.column
+      .ui.toggle.checkbox
+        = f.label 'Active?'
+        = f.check_box :active
+  .field.six.wide.column
+    .ui.labeled.input
+      .ui.label Full Name
+      = f.text_field :full_name, readonly: @readonly
+  .field.eight.wide.column
+    .ui.labeled.input
+      .ui.label Alternate Names
+      = f.text_field :alternate_names, readonly: @readonly
 
-    #fields.form-row.anchor
-      .col-sm-2.field
-        = f.text_field :name, label: 'Client Name', placeholder: 'Abbreviated name for client', class: 'requiredField', readonly: @readonly
-      .col-sm-2.field
-        = f.text_field :full_name, label: 'Full Name', readonly: @readonly
-      .col-sm-2.field
-        = f.text_field :alternate_names, label: 'Alternate Names', readonly: @readonly
-      .col-sm-2.field.pl-4.pt-4
-        = f.check_box :active, label: 'Active?', readonly: @readonly
+  .ui.divider
 
-  / form separator
-  .w-100
-    hr.bg-info
-  / submit or cancel
   - if ! @readonly
-    .d-flex
-      .p-1
-        .actions = f.submit 'Save Changes', class: 'btn btn-success'
-      .p-1
-        = link_to 'Cancel', clients_path, class: 'btn btn-danger'
-      .p-1
-        = link_to 'Show', @client, class: 'btn btn-primary'
+    = link_to 'Show', @client, class: 'ui teal button'
+    .ui.buttons
+      = link_to 'Cancel', clients_path, class: 'ui brown button'
+      .or
+      = f.submit 'Save', class: 'ui primary button'
   - else
-    .d-flex
-      .p-1
-        = link_to 'Edit', edit_client_path(@client), class: 'btn btn-primary'
-      .p-1
-        = link_to 'Back to List', clients_path, class: 'btn btn-info'
+    = link_to 'Edit', edit_client_path(@client), class: 'ui primary button'
+    = link_to 'Back to List', clients_path, class: 'ui grey button'

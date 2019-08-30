@@ -1,4 +1,6 @@
-= bootstrap_form_for @employee, layout: :vertical do |f|
+.ui.divider
+
+= form_for @employee, html: {class: 'ui form segment raised'} do |f|
   - if @employee.errors.any?
     #error_explanation
       h2 = "#{pluralize(@employee.errors.count, "error")} prohibited this employee from being saved:"
@@ -6,53 +8,63 @@
         - @employee.errors.full_messages.each do |message|
           li = message
 
-  / form separator
-  .w-100
-    hr.bg-info
-
-    #fields.form-row.anchor
-      .col-3.field
+  .two.fields
+    .required.field.three.wide.column
+      .ui.labeled.input
+        .ui.label Client
         = f.collection_select :client_id, Client.order(:name), :id, :name, readonly: @readonly
-      .col-2.field
-        = f.text_field :batch, label: 'Batch', placeholder: 'Batch', readonly: @readonly
-      .col-7.field
-      .col-2.field
-        = f.text_field :first_name, label: 'First Name', placeholder: 'First', readonly: @readonly
-      .col-2.field
-        = f.text_field :last_name, label: 'Last Name', placeholder: 'Last', readonly: @readonly
-      .col-2.field
-        = f.text_field :middle_name, label: 'Middle Name', placeholder: 'Middle', readonly: @readonly
-      .col-6.field
-      .col-2.field
-        = f.text_field :ssn, label: 'SSN', placeholder: '000-00-0000', readonly: @readonly
-      .col-2.field
-        = f.date_field :born_on, label: 'Date of Birth', placeholder: 'MM/DD/YYYY', readonly: @readonly
-      .col-8.field
-      .col-2.field
-        = f.date_field :hired_on, label: 'Date of Hire', placeholder: 'MM/DD/YYYY', readonly: @readonly
-      .col-2.field
-        = f.text_field :co_profile, label: 'Company Employee ID', placeholder: 'company employee ID', readonly: @readonly
-      .col-8.field
-      .col-2.field
+    .field.three.wide.column
+      .ui.labeled.input
+        .ui.label Batch
+        = f.text_field :batch, readonly: @readonly
+  .three.fields
+    .required.field.six.columns.wide
+      .ui.labeled.input
+        .ui.label First
+        = f.text_field :first_name, readonly: @readonly
+    .field.four.columns.wide
+      .ui.labeled.input
+        .ui.label Middle
+        = f.text_field :middle_name, readonly: @readonly
+    .required.field.six.columns.wide
+      .ui.labeled.input
+        .ui.label Last
+        = f.text_field :last_name, readonly: @readonly
+  .three.fields
+    .field.four.columns.wide
+      .ui.labeled.input
+        .ui.label SSN
+        = f.text_field :ssn, readonly: @readonly
+    .field.four.columns.wide
+      .ui.labeled.input
+        .ui.label Date of Birth
+        = f.date_field :born_on, readonly: @readonly
+    .field.four.columns.wide
+      .ui.labeled.input
+        .ui.label Date of Hire
+        = f.date_field :hired_on, readonly: @readonly
+  .three.fields
+    .field.five.wide.column
+      .ui.labeled.input
+        .ui.label Company Employee ID
+        = f.text_field :co_profile, readonly: @readonly
+    .field.five.wide.column
+      .ui.labeled.input
+        .ui.label Title
         = f.text_field :title, readonly: @readonly
-      .col-2.field
-        = f.email_field :email, placeholder: 'person@example.com', readonly: @readonly
+    .field.six.wide.column
+      .ui.labeled.input
+        .ui.label Email
+        = f.email_field :email, readonly: @readonly
 
-  / form separator
-  .w-100
-    hr.bg-info
-  / submit or cancel
+  .ui.divider
+
   - if ! @readonly
-    .d-flex
-      .p-1
-        .actions = f.submit 'Save Changes', class: 'btn btn-success'
-      .p-1
-        = link_to 'Cancel', employees_path, class: 'btn btn-danger'
-      .p-1
-        = link_to 'Show', @employee, class: 'btn btn-primary'
+    = link_to 'Show', @employee, class: 'ui teal button'
+    .ui.buttons
+      = link_to 'Cancel', employee_path, class: 'ui brown button'
+      .or
+      = f.submit 'Save', class: 'ui primary button'
   - else
-    .d-flex
-      .p-1
-        = link_to 'Edit', edit_employee_path(@employee), class: 'btn btn-primary'
-      .p-1
-        = link_to 'Back to List', employees_path, class: 'btn btn-info'
+    = link_to 'Edit', edit_employee_path(@employee), class: 'ui primary button'
+    = link_to 'Back to List', employees_path, class: 'ui grey button'

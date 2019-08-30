@@ -1,4 +1,12 @@
-= bootstrap_form_for @verification, layout: :vertical do |f|
+.ui.divider
+
+/ form navigation
+.sections
+  a.ui.mini.yellow.button data-toggle='collapse' href='#section1' role='button' aria-expanded='false' aria-controls='section1' Section 1
+  a.ui.mini.olive.button data-toggle='collapse' href='#section2' role='button' aria-expanded='false' aria-controls='section2' Section 2
+  a.ui.mini.orange.button data-toggle='collapse' href='#section3' role='button' aria-expanded='false' aria-controls='section3' Section 3
+
+= form_for @verification, html: {class: 'ui form segment raised'} do |f|
   - if @verification.errors.any?
     #error_explanation
       h2 = "#{pluralize(@verification.errors.count, "error")} prohibited this verification from being saved:"
@@ -6,297 +14,207 @@
         - @verification.errors.full_messages.each do |message|
           li = message
 
-  / form navigation
-  .d-flex
-    .p-1
-      a.btn.btn-info data-toggle='collapse' href='#section1' role='button' aria-expanded='false' aria-controls='section1' Section 1
-    .p-1
-      a.btn.btn-info data-toggle='collapse' href='#section2' role='button' aria-expanded='false' aria-controls='section2' Section 2
-    .p-1
-      a.btn.btn-info data-toggle='collapse' href='#section3' role='button' aria-expanded='false' aria-controls='section3' Section 3
+  .six.columns.wide
+    / section 1 - Persistently Visible Information
+    .two.fields
+      .required.six.wide.field
+        .ui.labeled.input
+          .ui.label Employee
+          = f.collection_select :employee_id, Employee.order(:last_name, :first_name), :id, :full_name, readonly: @readonly
+      .required.four.wide.field
+        .ui.labeled.input
+          .ui.label Revision
+          = f.collection_select :revision_id, Revision.order(starts_on: :desc), :id, :starts_on, readonly: @readonly
+    .two.fields
+      .three.wide.field
+        .ui.labeled.input
+          .ui.label Barcode
+          = f.text_field :barcode, maxlength: 8, readonly: @readonly
+            .field.four.columns.wide
+      .three.wide.field
+        .required.ui.labeled.input
+          .ui.label Batch
+          = f.text_field :batch, readonly: @readonly
+    .two.fields
+      .required.four.wide.field
+        .ui.labeled.input
+          .ui.label First
+          = f.text_field :first_name, readonly: @readonly
+      .four.wide.field
+        .ui.labeled.input
+          .ui.label Middle
+          = f.text_field :middle_name, readonly: @readonly
+    .two.fields
+      .required.four.wide.field
+        .ui.labeled.input
+          .ui.label Last
+          = f.text_field :last_name, readonly: @readonly
+      .four.wide.field
+        .ui.labeled.input
+          .ui.label Other Name
+          = f.text_field :other_name, readonly: @readonly
+  .six.columns.wide
+    = render @audits
+  #section1.ui.styled.accordion
+    .title
+      i.dropdown.icon Section 1
+    .content
+      .two.fields
+        .field.four.columns.wide
+          .ui.labeled.input
+            .ui.label Address
+            = f.text_field :addr, readonly: @readonly
+        .field.four.columns.wide
+          .ui.labeled.input
+            .ui.label Apt
+            = f.text_field :apt, readonly: @readonly
 
-  / form separator
-  .w-100
-    hr.bg-info
+  #section2.ui.styled.accordion
+    .title
+      i.dropdown.icon Section 2
+    .content
+      .three.fields
+        .field.four.columns.wide
+          .ui.labeled.input
+            .ui.label xxx
+        .field.four.columns.wide
+          .ui.labeled.input
+            .ui.label xxx
+        .field.four.columns.wide
+          .ui.labeled.input
+            .ui.label xxx
 
-  / section 1 - Persistently Visible Information
-  #persistentVars.form-row.anchor.pl-0.pr-0.col-6
-    .form-row
-      .col-auto.field
-        = f.collection_select :employee_id, Employee.order(:last_name, :first_name), :id, :full_name, readonly: @readonly
-      .col-auto.field
-        = f.collection_select :revision_id, Revision.order(:starts_on), :id, :starts_on, readonly: @readonly
-      .col-auto.field
-        = f.text_field :barcode, label: 'Barcode', placeholder: '00000000', maxlength: 8, readonly: @readonly
-      .col-auto.field
-        = f.text_field :batch, label: 'Batch', placeholder: 'Enter Batch Name', readonly: @readonly
-    .form-row
-      .col-auto.field
-        = f.text_field :first_name, label: 'First Name', placeholder: 'Enter First Name', readonly: @readonly
-      .col-auto.field
-        = f.text_field :last_name, label: 'Last Name', placeholder: 'Enter Last Name', readonly: @readonly
-      .col-auto.field
-        = f.text_field :middle_name, label: 'Middle Name', placeholder: 'Enter Middle Initial or Name', readonly: @readonly
-      .col-auto.field
-        = f.text_field :other_name, label: 'Other Name', placeholder: 'Enter Other Name(s) Used', readonly: @readonly
-  
-    / audits
-    #audits.anchor.border.p-0.m-0.col-6
-      = f.nested_fields_for :audits do |aud|
-        .col-auto.field
-          = aud.collection_select :mistake_id, Mistake.order(:abbr), :id, :abbr, hide_label: true, readonly: @readonly
-      / table#table.table.table-sm.table-striped.table-bordered.table-hover
-      / thead
-      /   tr
-      /     th.center.aligned Code
-      /     th.center.aligned Issue
-      /     th.center.aligned Responsible
-      /     th.center.aligned Recorded
-      /     th.center.aligned Auditor
-      /     th.center.aligned Note
-      /     th.center.aligned data-orderable='false' Actions
+  #section3.ui.styled.accordion
+    .title
+      i.dropdown.icon Section 3
+    .content
+      .three.fields
+        .field.four.columns.wide
+          .ui.labeled.input
+            .ui.label xxx
+        .field.four.columns.wide
+          .ui.labeled.input
+            .ui.label xxx
+        .field.four.columns.wide
+          .ui.labeled.input
+            .ui.label xxx
 
-      / tbody
-      /   - @audits.each do |audit|
-      /     tr
-      /       td.center.aligned = audit.mistake.abbr
-      /       td.center.aligned = audit.issue
-      /       td.center.aligned = audit.responsible
-      /       td.center.aligned = l audit.recorded_on unless audit.recorded_on.nil?
-      /       td.center.aligned = audit.auditor
-      /       td.center.aligned
-      /         = link_to 'Destroy', audit, data: { confirm: 'Are you sure?' }, method: :delete, class: 'btn btn-sm btn-outline-danger'
+  .ui.divider
 
-  / section 1 - Employee Information
-  #section1.form-row.anchor.border.collapse.pl-0.pr-0.col-6
-    .form-row.col-12
-      h5.col-2.p-1.pt-4.center.aligned style='background-color: #C0C0C0' Section 1
-      .col-6.field
-        = f.text_field :addr, label: 'Address', placeholder: 'Residential Street Address', readonly: @readonly
-      .col-auto.field
-        = f.text_field :apt, readonly: @readonly
-    .form-row.col-12
-      .col-auto.field
-        = f.text_field :city, placeholder: 'Enter City', readonly: @readonly
-      .col-auto.field
-        = f.text_field :state, readonly: @readonly
-      .col-auto.field
-        = f.text_field :zip, placeholder: '00000', readonly: @readonly
-    .form-row.col-12
-      .col-auto.field
-        = f.date_field :born_on, label: 'Date of Birth', readonly: @readonly
-      .col-auto.field
-        = f.text_field :ssn, label: 'SSN', readonly: @readonly
-      .col-auto.field
-        = f.email_field :email, placeholder: 'name@example.com', readonly: @readonly
-      .col-auto.field
-        = f.telephone_field :phone, placeholder: '000-000-0000', readonly: @readonly
-      .col-auto.field
-    / section 1 - Employee Certification
-    #section1EmpCert.form-row.anchor.pl-0.pr-0.border.border-primary.ml-0.mr-0
-      h5.col-2.p-1.pt-3.bg-primary.text-light.center.aligned Employee <br/> Certification
-      .col-auto.field
-        = f.select :cit_status, Verification.cit_status.options, label: 'Status', readonly: @readonly
-      .col-auto.field.pl-4.pt-4
-        = f.check_box :s1_signed, label: 'S1 Signed?', readonly: @readonly
-      .col-auto.field
-        = f.date_field :s1_signed_on, label: 'S1 Date Signed', readonly: @readonly
-      .col-auto.field
-        = f.text_field :anum_lpr, label: 'Alien # (LPR)', readonly: @readonly
-      .col-auto.field
-        = f.text_field :anum_aaw, label: 'Alien # (AAW)', readonly: @readonly
-      .col-auto.field
-        = f.date_field :wae_on, label: 'WAE Date', readonly: @readonly
-      .col-auto.field
-        = f.text_field :i94_num, label: 'I-94 #', readonly: @readonly
-      .col-auto.field
-        = f.text_field :fpp_num, label: 'Foreign Passport #', readonly: @readonly
-      .col-auto.field
-        = f.text_field :fpp_auth, label: 'Foreign Passport Authority', readonly: @readonly
-      .col-auto.field
-    / section 1 - PT Information
-    #section1PT.form-row.anchor.pl-0.pr-0.ml-0.mr-0
-      .form-row.col-12
-        h5.col-2.p-1.pt-4.center.aligned style='background-color: #C0C0C0' P/T Section
-        .col-auto.field.pl-4.pt-4
-          = f.check_box :pt, label: 'P/T Used?', readonly: @readonly
-        .col-6.field
-          = f.text_field :pt_full_name, label: 'Full Name (for older forms)', placeholder: 'Enter full name for older forms', readonly: @readonly
-        .col-12.field
-          = f.text_field :pt_full_addr, label: 'Full Address (for older forms)', placeholder: 'Enter full address for older forms', readonly: @readonly
-      .form-row.col-12
-        .col-auto.field
-          = f.text_field :pt_first_name, label: 'First Name', placeholder: 'Enter first name', readonly: @readonly
-        .col-auto.field
-          = f.text_field :pt_last_name, label: 'Last Name', placeholder: 'Enter last name', readonly: @readonly
-        .col-6.field
-          = f.text_field :pt_addr, label: 'Address', placeholder: 'Enter street address', readonly: @readonly
-      .form-row.col-12
-        .col-auto.field
-          = f.text_field :pt_city, label: 'City', placeholder: 'Enter city', readonly: @readonly
-        .col-auto.field
-          = f.text_field :pt_state, label: 'State', readonly: @readonly
-        .col-auto.field
-          = f.text_field :pt_zip, label: 'Zip', placeholder: '00000', readonly: @readonly
-        .col-auto.field.pl-4.pt-4
-          = f.check_box :pt_signed, label: 'P/T Signed?', readonly: @readonly
-        .col-auto.field
-          = f.date_field :pt_signed_on, label: 'P/T Date Signed', readonly: @readonly
-  / section 2 - Documents
-  #section2.form-row.anchor.border.collapse.pl-0.pr-0.col-6
-    .form-row.col-12
-      h5.col-2.p-1.pt-4.center.aligned style='background-color: #C0C0C0' Section 2
-      .col-10.field
-        = f.text_field :s2_hdr_full_name, label: 'Full Name (for older forms)', readonly: @readonly
-    .form-row.col-12
-      .col-3.field
-        = f.text_field :s2_hdr_first_name, label: 'First Name', readonly: @readonly
-      .col-3.field
-        = f.text_field :s2_hdr_last_name, label: 'Last Name', readonly: @readonly
-      .col-auto.field
-        = f.text_field :s2_hdr_middle_name, label: 'Middle', readonly: @readonly
-      .col-1.field
-        = f.text_field :s2_hdr_testify_num, label: 'Status', readonly: @readonly
-      .form-row.border.ml-0.mr-0
-        .form-row.col-12
-          h5.col-1.p-1.pt-4.center.aligned.bg-gradient-danger.text-white List A
-          .col-4.field
-            = f.collection_select :a1_doc_id, DocumentType.order(:name), :id, :name, label: 'A1 Type', readonly: @readonly
-          .col-3.field
-            = f.text_field :a1_doc_title, label: 'A1 Title', readonly: @readonly
-          .col-3.field
-            = f.text_field :a1_doc_auth, label: 'A1 Authority', readonly: @readonly
-          .col-auto.field
-            = f.text_field :a1_doc_num, label: 'A1 Doc Number', readonly: @readonly
-          .col-auto.field
-            = f.date_field :a1_doc_expires_on, label: 'A1 Expires', readonly: @readonly
-        .form-row.col-12
-          .col-4.field
-            = f.collection_select :a2_doc_id, DocumentType.order(:name), :id, :name, readonly: @readonly
-          .col-3.field
-            = f.text_field :a2_doc_title, label: 'A2 Title', readonly: @readonly
-          .col-3.field
-            = f.text_field :a2_doc_auth, label: 'A2 Authority', readonly: @readonly
-          .col-auto.field
-            = f.text_field :a2_doc_num, label: 'A2 Doc Number', readonly: @readonly
-          .col-auto.field
-            = f.date_field :a2_doc_expires_on, label: 'A2 Expires', readonly: @readonly
-        .form-row.col-12
-          .col-4.field
-            = f.collection_select :a3_doc_id, DocumentType.order(:name), :id, :name, readonly: @readonly
-          .col-3.field
-            = f.text_field :a3_doc_title, label: 'A3 Title', readonly: @readonly
-          .col-3.field
-            = f.text_field :a3_doc_auth, label: 'A3 Authority', readonly: @readonly
-          .col-auto.field
-            = f.text_field :a3_doc_num, label: 'A3 Doc Number', readonly: @readonly
-          .col-auto.field
-            = f.date_field :a3_doc_expires_on, label: 'A3 Expires', readonly: @readonly
-      .form-row.border.pl-0.pr-0.ml-0.mr-0
-        h5.col-1.p-1.pt-4.center.aligned.bg-gradient-success.text-white List B
-        .col-auto.field
-          = f.collection_select :b1_doc_id, DocumentType.order(:name), :id, :name, readonly: @readonly
-        .col-auto.field
-          = f.text_field :b1_doc_title, label: 'B1 Title', readonly: @readonly
-        .col-auto.field
-          = f.text_field :b1_doc_auth, label: 'B1 Authority', readonly: @readonly
-        .col-auto.field
-          = f.text_field :b1_doc_num, label: 'B1 Doc Number', readonly: @readonly
-        .col-auto.field
-          = f.date_field :b1_doc_expires_on, label: 'B1 Expires', readonly: @readonly
-      .form-row.border.pl-0.pr-0.ml-0.mr-0
-        h5.col-1.p-1.pt-4.center.aligned.bg-gradient-warning.text-dark List C
-        .col-auto.field
-          = f.collection_select :c1_doc_id, DocumentType.order(:name), :id, :name, readonly: @readonly
-        .col-auto.field
-          = f.text_field :c1_doc_title, label: 'C1 Title', readonly: @readonly
-        .col-auto.field
-          = f.text_field :c1_doc_auth, label: 'C1 Authority', readonly: @readonly
-        .col-auto.field
-          = f.text_field :c1_doc_num, label: 'C1 Doc Number', readonly: @readonly
-        .col-auto.field
-          = f.date_field :c1_doc_expires_on, label: 'C1 Expires', readonly: @readonly
-        .col-auto.field
-          = f.text_area :doc_added_info, label: 'Additional Information', readonly: @readonly
-    / section 2 - Employer Certification
-    #section2EmpCert.form-row.anchor.pl-0.pr-0.border.border-warning.ml-0.mr-0
-      h5.col-2.p-1.pt-3.bg-info.text-light.center.aligned Employer Certification
-      .col-auto.field
-        = f.date_field :hired_on, readonly: @readonly
-      .col-auto.field
-        = f.text_field :hr_full_name, readonly: @readonly
-      .col-auto.field
-        = f.text_field :hr_first_name, readonly: @readonly
-      .col-auto.field
-        = f.text_field :hr_last_name, readonly: @readonly
-      .col-auto.field
-        = f.text_field :hr_title, readonly: @readonly
-      .col-auto.field
-        = f.text_field :bus_name, readonly: @readonly
-      .col-auto.field
-        = f.text_field :bus_full_addr, readonly: @readonly
-      .col-auto.field
-        = f.text_field :bus_addr, readonly: @readonly
-      .col-auto.field
-        = f.text_field :bus_city, readonly: @readonly
-      .col-auto.field
-        = f.text_field :bus_state, readonly: @readonly
-      .col-auto.field
-        = f.text_field :bus_zip, readonly: @readonly
-      .col-auto.field.pl-4.pt-4
-        = f.check_box :s2_signed, label: 'S2 Signed?', readonly: @readonly
-      .col-auto.field
-        = f.date_field :s2_signed_on, label: 'S2  Date Signed', readonly: @readonly
-  / section 3
-  #section3.form-row.anchor.border.collapse.pl-0.pr-0.col-6
-    .form-row.col-12
-      h5.col-2.p-1.pt-4.center.aligned style='background-color: #C0C0C0' Section 3
-      .col-4.field
-        = f.text_field :s3_new_name, label: 'New Name', placeholder: 'Enter new Employee name', readonly: @readonly
-      .col-auto.field
-        = f.date_field :s3_rehired_on,label: 'Rehire Date',  placeholder: 'Enter new Employee Date of Hire', readonly: @readonly
-    .form-row.col-12
-      .col-4.field
-        = f.collection_select :s3_doc_id, DocumentType.order(:name), :id, :name, label: 'Doc Type', readonly: @readonly
-      .col-3.field
-        = f.text_field :s3_doc_title, label: 'S3 Title', readonly: @readonly
-      .col-3.field
-        = f.text_field :s3_doc_auth, label: 'S3 Authority', readonly: @readonly
-    .form-row.col-12
-      .col-auto.field
-        = f.text_field :s3_doc_num, label: 'S3 Document Number', readonly: @readonly
-      .col-auto.field
-        = f.date_field :s3_doc_expires_on, label: 'S3 Expires', readonly: @readonly
-      .col-auto.field.pl-4.pt-4
-        = f.check_box :s3_signed, label: 'S3 Signed?', readonly: @readonly
-      .col-auto.field
-        = f.date_field :s3_signed_on, label: 'S3 Date Signed', readonly: @readonly
-    .form-row.col-12
-      .col-4.field
-        = f.text_field :s3_full_name, label: 'Full Name (for older forms)', readonly: @readonly
-      .col-3.field
-        = f.text_field :s3_first_name, label: 'First Name', readonly: @readonly
-      .col-3.field
-        = f.text_field :s3_last_name, label: 'Last Name', readonly: @readonly
-
-  / form separator
-  .w-100
-    hr.bg-info
-  / submit or cancel
   - if ! @readonly
-    .d-flex
-      .p-1
-        .actions = f.submit 'Save Changes', class: 'btn btn-success'
-      .p-1
-        = link_to 'Cancel', verifications_path, class: 'btn btn-danger'
-      .p-1
-        = link_to 'Show', @verification, class: 'btn btn-primary'
+    = link_to 'Show', @verification, class: 'ui teal button'
+    .ui.buttons
+      = link_to 'Cancel', verification_path, class: 'ui brown button'
+      .or
+      = f.submit 'Save', class: 'ui primary button'
   - else
-    .d-flex
-      .p-1
-        = link_to 'Edit', edit_verification_path(@verification), class: 'btn btn-primary'
-      .p-1
-        = link_to 'Back to List', verifications_path, class: 'btn btn-info'
+    = link_to 'Edit', edit_verification_path(@verification), class: 'ui primary button'
+    = link_to 'Back to List', verifications_path, class: 'ui grey button'
+  / =====================================
+  / section 1 - Employee Information
+  / #section1.form-row.anchor.border.collapse.pl-0.pr-0.col-6
+  /     h5.col-2.p-1.pt-4.center.aligned style='background-color: #C0C0C0' Section 1
+  /       = f.text_field :city, readonly: @readonly
+  /       = f.text_field :state, readonly: @readonly
+  /       = f.text_field :zip, readonly: @readonly
+  /       = f.date_field :born_on, label: 'Date of Birth', readonly: @readonly
+  /       = f.text_field :ssn, label: 'SSN', readonly: @readonly
+  /       = f.email_field :email, readonly: @readonly
+  /       = f.telephone_field :phone, readonly: @readonly
+  /   section 1 - Employee Certification
+  /   #section1EmpCert.form-row.anchor.pl-0.pr-0.border.border-primary.ml-0.mr-0
+  /     h5.col-2.p-1.pt-3.bg-primary.text-light.center.aligned Employee <br/> Certification
+  /       = f.select :cit_status, Verification.cit_status.options, label: 'Status', readonly: @readonly
+  /       = f.check_box :s1_signed, label: 'S1 Signed?', readonly: @readonly
+  /       = f.date_field :s1_signed_on, label: 'S1 Date Signed', readonly: @readonly
+  /       = f.text_field :anum_lpr, label: 'Alien # (LPR)', readonly: @readonly
+  /       = f.text_field :anum_aaw, label: 'Alien # (AAW)', readonly: @readonly
+  /       = f.date_field :wae_on, label: 'WAE Date', readonly: @readonly
+  /       = f.text_field :i94_num, label: 'I-94 #', readonly: @readonly
+  /       = f.text_field :fpp_num, label: 'Foreign Passport #', readonly: @readonly
+  /       = f.text_field :fpp_auth, label: 'Foreign Passport Authority', readonly: @readonly
+  /   section 1 - PT Information
+  /   #section1PT.form-row.anchor.pl-0.pr-0.ml-0.mr-0
+  /       h5.col-2.p-1.pt-4.center.aligned style='background-color: #C0C0C0' P/T Section
+  /         = f.check_box :pt, label: 'P/T Used?', readonly: @readonly
+  /         = f.text_field :pt_full_name, label: 'Full Name (for older forms)', readonly: @readonly
+  /         = f.text_field :pt_full_addr, label: 'Full Address (for older forms)',readonly: @readonly
+  /         = f.text_field :pt_first_name, label: 'First Name', readonly: @readonly
+  /         = f.text_field :pt_last_name, label: 'Last Name', readonly: @readonly
+  /         = f.text_field :pt_addr, label: 'Address', readonly: @readonly
+  /         = f.text_field :pt_city, label: 'City', readonly: @readonly
+  /         = f.text_field :pt_state, label: 'State', readonly: @readonly
+  /         = f.text_field :pt_zip, label: 'Zip', readonly: @readonly
+  /         = f.check_box :pt_signed, label: 'P/T Signed?', readonly: @readonly
+  /         = f.date_field :pt_signed_on, label: 'P/T Date Signed', readonly: @readonly
+  / section 2 - Documents
+  / #section2.form-row.anchor.border.collapse.pl-0.pr-0.col-6
+  /     h5.col-2.p-1.pt-4.center.aligned style='background-color: #C0C0C0' Section 2
+  /       = f.text_field :s2_hdr_full_name, label: 'Full Name (for older forms)', readonly: @readonly
+  /       = f.text_field :s2_hdr_first_name, label: 'First Name', readonly: @readonly
+  /       = f.text_field :s2_hdr_last_name, label: 'Last Name', readonly: @readonly
+  /       = f.text_field :s2_hdr_middle_name, label: 'Middle', readonly: @readonly
+  /       = f.text_field :s2_hdr_testify_num, label: 'Status', readonly: @readonly
+  /         h5.col-1.p-1.pt-4.center.aligned.bg-gradient-danger.text-white List A
+  /           = f.collection_select :a1_doc_id, DocumentType.order(:name), :id, :name, label: 'A1 Type', readonly: @readonly
+  /           = f.text_field :a1_doc_title, label: 'A1 Title', readonly: @readonly
+  /           = f.text_field :a1_doc_auth, label: 'A1 Authority', readonly: @readonly
+  /           = f.text_field :a1_doc_num, label: 'A1 Doc Number', readonly: @readonly
+  /           = f.date_field :a1_doc_expires_on, label: 'A1 Expires', readonly: @readonly
+  /           = f.collection_select :a2_doc_id, DocumentType.order(:name), :id, :name, readonly: @readonly
+  /           = f.text_field :a2_doc_title, label: 'A2 Title', readonly: @readonly
+  /           = f.text_field :a2_doc_auth, label: 'A2 Authority', readonly: @readonly
+  /           = f.text_field :a2_doc_num, label: 'A2 Doc Number', readonly: @readonly
+  /           = f.date_field :a2_doc_expires_on, label: 'A2 Expires', readonly: @readonly
+  /           = f.collection_select :a3_doc_id, DocumentType.order(:name), :id, :name, readonly: @readonly
+  /           = f.text_field :a3_doc_title, label: 'A3 Title', readonly: @readonly
+  /           = f.text_field :a3_doc_auth, label: 'A3 Authority', readonly: @readonly
+  /           = f.text_field :a3_doc_num, label: 'A3 Doc Number', readonly: @readonly
+  /           = f.date_field :a3_doc_expires_on, label: 'A3 Expires', readonly: @readonly
+  /       h5.col-1.p-1.pt-4.center.aligned.bg-gradient-success.text-white List B
+  /         = f.collection_select :b1_doc_id, DocumentType.order(:name), :id, :name, readonly: @readonly
+  /         = f.text_field :b1_doc_title, label: 'B1 Title', readonly: @readonly
+  /         = f.text_field :b1_doc_auth, label: 'B1 Authority', readonly: @readonly
+  /         = f.text_field :b1_doc_num, label: 'B1 Doc Number', readonly: @readonly
+  /         = f.date_field :b1_doc_expires_on, label: 'B1 Expires', readonly: @readonly
+  /       h5.col-1.p-1.pt-4.center.aligned.bg-gradient-warning.text-dark List C
+  /         = f.collection_select :c1_doc_id, DocumentType.order(:name), :id, :name, readonly: @readonly
+  /         = f.text_field :c1_doc_title, label: 'C1 Title', readonly: @readonly
+  /         = f.text_field :c1_doc_auth, label: 'C1 Authority', readonly: @readonly
+  /         = f.text_field :c1_doc_num, label: 'C1 Doc Number', readonly: @readonly
+  /         = f.date_field :c1_doc_expires_on, label: 'C1 Expires', readonly: @readonly
+  /         = f.text_area :doc_added_info, label: 'Additional Information', readonly: @readonly
+  /   section 2 - Employer Certification
+  /   #section2EmpCert.form-row.anchor.pl-0.pr-0.border.border-warning.ml-0.mr-0
+  /     h5.col-2.p-1.pt-3.bg-info.text-light.center.aligned Employer Certification
+  /       = f.date_field :hired_on, readonly: @readonly
+  /       = f.text_field :hr_full_name, readonly: @readonly
+  /       = f.text_field :hr_first_name, readonly: @readonly
+  /       = f.text_field :hr_last_name, readonly: @readonly
+  /       = f.text_field :hr_title, readonly: @readonly
+  /       = f.text_field :bus_name, readonly: @readonly
+  /       = f.text_field :bus_full_addr, readonly: @readonly
+  /       = f.text_field :bus_addr, readonly: @readonly
+  /       = f.text_field :bus_city, readonly: @readonly
+  /       = f.text_field :bus_state, readonly: @readonly
+  /       = f.text_field :bus_zip, readonly: @readonly
+  /       = f.check_box :s2_signed, label: 'S2 Signed?', readonly: @readonly
+  /       = f.date_field :s2_signed_on, label: 'S2  Date Signed', readonly: @readonly
+  / section 3
+  / #section3.form-row.anchor.border.collapse.pl-0.pr-0.col-6
+  /     h5.col-2.p-1.pt-4.center.aligned style='background-color: #C0C0C0' Section 3
+  /       = f.text_field :s3_new_name, label: 'New Name', readonly: @readonly
+  /       = f.date_field :s3_rehired_on,label: 'Rehire Date', readonly: @readonly
+  /       = f.collection_select :s3_doc_id, DocumentType.order(:name), :id, :name, label: 'Doc Type', readonly: @readonly
+  /       = f.text_field :s3_doc_title, label: 'S3 Title', readonly: @readonly
+  /       = f.text_field :s3_doc_auth, label: 'S3 Authority', readonly: @readonly
+  /       = f.text_field :s3_doc_num, label: 'S3 Document Number', readonly: @readonly
+  /       = f.date_field :s3_doc_expires_on, label: 'S3 Expires', readonly: @readonly
+  /       = f.check_box :s3_signed, label: 'S3 Signed?', readonly: @readonly
+  /       = f.date_field :s3_signed_on, label: 'S3 Date Signed', readonly: @readonly
+  /       = f.text_field :s3_full_name, label: 'Full Name (for older forms)', readonly: @readonly
+  /       = f.text_field :s3_first_name, label: 'First Name', readonly: @readonly
+  /       = f.text_field :s3_last_name, label: 'Last Name', readonly: @readonly
 
 javascript:
   $(document).ready(function() {

@@ -9,9 +9,10 @@ require 'semantic-ui/accordion'
 require 'semantic-ui/transition'
 require 'semantic-ui/dropdown'
 require 'jszip'
-# require 'pdfmake' # loaded via yarn
-# require 'datatables.net-buttons/js/buttons.html5' # loaded via yarn
-# require 'datatables.net-buttons/js/buttons.print' # loaded via yarn
 require 'datatables'
 
 `document.addEventListener("DOMContentLoaded", function() {#{Document.new};})`
+
+`$('.ui.checkbox')
+  .checkbox()
+;`

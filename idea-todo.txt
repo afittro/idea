@@ -1,0 +1,14 @@
+
+* add scroll-to-top type of button to long verification form 
+
+* add calendar FA icon to all date fields in all forms
+
+* cancel on view form partial in edit mode always redirects to index list. should cancel edit and return to show of same
+
+* finish UI/UX of Verifications views (S2/S3)
+
+* add more form/model validations (SSN, Email, Phone)
+
+* add more tests and ensure all work - change paradigm from experimentation to full-blown TDD
+
+* change seeds.rb to be per-environment. test/dev = faker. prod = prepopulate documents, mistakes, settings, etc.

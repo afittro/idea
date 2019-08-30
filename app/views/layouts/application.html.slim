@@ -46,18 +46,24 @@ html
       a.item href=audits_path class="item#{' active' if current_page?(audits_path)}"
         i.balance.scale.brown.icon
         | Audits
-      .ui.dropdown.item
-        | More
-        i.dropdown.icon
-        .transition.hidden.inverted.menu style='background-color: #062f4f'
-          = link_to 'Document Types', document_types_path, class: "ui item#{' active' if current_page?(document_types_path)}"
-          = link_to 'EV Cases',       ev_cases_path,       class: "ui item#{' active' if current_page?(ev_cases_path)}"
-          .divider.ui
-          = link_to 'Lists',     lists_path,     class: "ui item#{' active' if current_page?(lists_path)}"
-          = link_to 'Mistakes',  mistakes_path,  class: "ui item#{' active' if current_page?(mistakes_path)}"
-          = link_to 'Revisions', revisions_path, class: "ui item#{' active' if current_page?(revisions_path)}"
-          = link_to 'Settings',  settings_path,  class: "ui item#{' active' if current_page?(settings_path)}"
-          = link_to 'Users',     users_path,     class: "ui item#{' active' if current_page?(users_path)}"
+      a.item href=document_types_path class="item#{' active' if current_page?(document_types_path)}"
+        i.file.alternate.outline.pink.icon
+        | Documents
+      a.item href=ev_cases_path class="item#{' active' if current_page?(ev_cases_path)}"
+        i.briefcase.purple.icon
+        | Cases
+      / .ui.dropdown.item
+      /   | More
+      /   i.dropdown.icon
+      /   .transition.hidden.menu
+      /     = link_to 'Document Types', document_types_path, class: "ui item#{' active' if current_page?(document_types_path)}"
+      /     = link_to 'EV Cases',       ev_cases_path,       class: "ui item#{' active' if current_page?(ev_cases_path)}"
+      /     .divider.ui
+      /     = link_to 'Lists',     lists_path,     class: "ui item#{' active' if current_page?(lists_path)}"
+      /     = link_to 'Mistakes',  mistakes_path,  class: "ui item#{' active' if current_page?(mistakes_path)}"
+      /     = link_to 'Revisions', revisions_path, class: "ui item#{' active' if current_page?(revisions_path)}"
+      /     = link_to 'Settings',  settings_path,  class: "ui item#{' active' if current_page?(settings_path)}"
+      /     = link_to 'Users',     users_path,     class: "ui item#{' active' if current_page?(users_path)}"
       .ui.inverted.labeled.icon.right.compact.vertical.menu style='background-color: #062f4f'
         - if @current_user.admin?
           a.item href=rails_admin_path

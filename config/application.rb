@@ -9,9 +9,8 @@ require 'opal-jquery'
 Bundler.require(*Rails.groups)
 
 module Idea
+  # replace scss with sass, Andrew preference
   class Application < Rails::Application
-
-    # replace scss with sass, Andrew preference
     config.sass.preferred_syntax = :sass
     config.sass.line_comments = false
     config.sass.cache = false
