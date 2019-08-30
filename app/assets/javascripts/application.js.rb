@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'opal'
 require 'rails-ujs'
 require 'activestorage'
