@@ -37,10 +37,17 @@ gem 'rails_admin_charts'
 gem 'semantic-ui-rails'
 gem 'semantic-ui-sass'
 gem 'kaminari' # pagination
+<<<<<<< HEAD
 
 # sortable datatables and more
+=======
+gem 'bootstrap4-kaminari-views' # to style kaminari pagination per Bootstrap theme
+gem "bootstrap_form", ">= 4.2.0" # read: https://github.com/bootstrap-ruby/bootstrap_form
+>>>>>>> 9a04d8b227035edd54022ad18eec193db6d2fb8b
 gem 'jquery-datatables' # https://github.com/mkhairi/jquery-datatables
 gem 'jszip-rails' # for excel export from datatables
+
+gem 'nested_form'
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]

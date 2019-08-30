@@ -1,5 +1,9 @@
 {
   "dependencies": {
+<<<<<<< HEAD
     "gulp": "^4.0.2"
+=======
+    "bulma": "^0.7.5"
+>>>>>>> 9a04d8b227035edd54022ad18eec193db6d2fb8b
   }
 }

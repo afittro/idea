@@ -394,6 +394,7 @@ DEPENDENCIES
   jszip-rails
   kaminari
   listen (>= 3.0.5, < 3.2)
+  nested_form
   obj_mud!
   opal-rails
   paper_trail
