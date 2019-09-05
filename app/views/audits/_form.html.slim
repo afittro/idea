@@ -1,4 +1,6 @@
-= bootstrap_form_for @audit, layout: :vertical do |f|
+.ui.divider
+
+= form_for @audit, html: {class: 'ui form segment raised'} do |f|
   - if @audit.errors.any?
     #error_explanation
       h2 = "#{pluralize(@audit.errors.count, "error")} prohibited this audit from being saved:"
@@ -6,39 +8,42 @@
         - @audit.errors.full_messages.each do |message|
           li = message
 
-  / form separator
-  .w-100
-    hr.bg-info
-
-    #fields.form-row.anchor
-      .col-sm-2.field
+  .one.field
+    .required.field.eight.wide.column
+      .ui.labeled.input
+        .ui.label Verification
         = f.collection_select :verification_id, Verification.order(:last_name, :first_name), :id, :str, readonly: @readonly
-      .col-sm-2.field
+  .three.fields
+    .required.field.four.wide.column
+      .ui.labeled.input
+        .ui.label Mistake
         = f.collection_select :mistake_id, Mistake.all, :id, :abbr, readonly: @readonly
-      .col-sm-2.field
+    .required.field.four.wide.column
+      .ui.labeled.input
+        .ui.label Issue
         = f.select :issue, Audit.issue.options, readonly: @readonly
-      .col-sm-2.field
+    .required.field.four.wide.column
+      .ui.labeled.input
+        .ui.label Responsible Party
         = f.select :responsible, Audit.responsible.options, label: 'Responsible Party', readonly: @readonly
-      .col-sm-2.field
+  .two.fields
+    .required.field.five.wide.column
+      .ui.labeled.input
+        .ui.label Recorded on
         = f.datetime_field :recorded_on, label: 'Date Recorded', readonly: @readonly
-      .col-sm-2.field
+    .required.field.three.wide.column
+      .ui.labeled.input
+        .ui.label Auditor
         = f.text_field :auditor, readonly: @readonly
 
-  / form separator
-  .w-100
-    hr.bg-info
-  / submit or cancel
+  .ui.divider
+
   - if ! @readonly
-    .d-flex
-      .p-1
-        .actions = f.submit 'Save Changes', class: 'btn btn-success'
-      .p-1
-        = link_to 'Cancel', audits_path, class: 'btn btn-danger'
-      .p-1
-        = link_to 'Show', @audit, class: 'btn btn-primary'
+    = link_to 'Show', @audit, class: 'ui teal button'
+    .ui.buttons
+      = link_to 'Cancel', audits_path, class: 'ui brown button'
+      .or
+      = f.submit 'Save', class: 'ui primary button'
   - else
-    .d-flex
-      .p-1
-        = link_to 'Edit', edit_audit_path(@audit), class: 'btn btn-primary'
-      .p-1
-        = link_to 'Back to List', audits_path, class: 'btn btn-info'
+    = link_to 'Edit', edit_audit_path(@audit), class: 'ui primary button'
+    = link_to 'Back to List', audits_path, class: 'ui grey button'

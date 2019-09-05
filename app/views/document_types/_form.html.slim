@@ -1,44 +1,51 @@
-= bootstrap_form_for @document_type, layout: :vertical do |f|
+.ui.divider
+
+= form_for @document_type, html: {class: 'ui form segment raised'} do |f|
   - if @document_type.errors.any?
     #error_explanation
-      h2 = "#{pluralize(@document_type.errors.count, "error")} prohibited this document type from being saved:"
+      h2 = "#{pluralize(@document_type.errors.count, "error")} prohibited this document from being saved:"
       ul
         - @document_type.errors.full_messages.each do |message|
           li = message
 
-  / form separator
-  .w-100
-    hr.bg-info
-
-    #fields.form-row.anchor
-      .col-sm-2.field
+  .three.fields
+    .required.field.four.wide.column
+      .ui.labeled.input
+        .ui.label Code
         = f.number_field :code, readonly: @readonly
-      .col-sm-2.field
+    .required.field.eight.wide.column
+      .ui.labeled.input
+        .ui.label Name
         = f.text_field :name, readonly: @readonly
-      .col-sm-2.field
+  .four.fields
+    .required.field.four.wide.column
+      .ui.labeled.input
+        .ui.label Abbreviation
         = f.text_field :abbr, label: 'Abbreviation', readonly: @readonly
-      .col-sm-2.field.pl-4.pt-4
-        = f.check_box :active, label: 'Active?', readonly: @readonly
-      .col-sm-2.field.pl-4.pt-4
-        = f.check_box :ev, label: 'E-Verify Document?', readonly: @readonly
-      .col-sm-2.field.pl-4.pt-4
-        = f.check_box :rcpt, label: 'Receipt Document?', readonly: @readonly
+    .inline.field.two.wide.middle.aligned.column
+      .ui.toggle.checkbox
+        = f.check_box :active
+        = f.label 'Active?'
+        / = f.check_box :active, label: 'Active?', readonly: @readonly
+    .inline.field.two.wide.middle.aligned.column
+      .ui.toggle.checkbox
+        = f.check_box :ev
+        = f.label 'E-Verify?'
+        / = f.check_box :ev, label: 'E-Verify Document?', readonly: @readonly
+    .inline.field.two.wide.middle.aligned.column
+      .ui.toggle.checkbox
+        = f.check_box :rcpt
+        = f.label 'Receipt?'
+        / = f.check_box :rcpt, label: 'Receipt Document?', readonly: @readonly
 
-  / form separator
-  .w-100
-    hr.bg-info
-  / submit or cancel
+  .ui.divider
+
   - if ! @readonly
-    .d-flex
-      .p-1
-        .actions = f.submit 'Save Changes', class: 'btn btn-success'
-      .p-1
-        = link_to 'Cancel', document_types_path, class: 'btn btn-danger'
-      .p-1
-        = link_to 'Show', @document_type, class: 'btn btn-primary'
+    = link_to 'Show', @document_type, class: 'ui teal button'
+    .ui.buttons
+      = link_to 'Cancel', document_types_path, class: 'ui brown button'
+      .or
+      = f.submit 'Save', class: 'ui primary button'
   - else
-    .d-flex
-      .p-1
-        = link_to 'Edit', edit_document_type_path(@document_type), class: 'btn btn-primary'
-      .p-1
-        = link_to 'Back to List', document_types_path, class: 'btn btn-info'
+    = link_to 'Edit', edit_document_type_path(@document_type), class: 'ui primary button'
+    = link_to 'Back to List', document_types_path, class: 'ui grey button'

@@ -1,62 +1,88 @@
-= bootstrap_form_for @ev_case, layout: :vertical do |f|
+.ui.divider
+
+= form_for @ev_case, html: {class: 'ui form segment raised'} do |f|
   - if @ev_case.errors.any?
     #error_explanation
-      h2 = "#{pluralize(@ev_case.errors.count, "error")} prohibited this e-verify case from being saved:"
+      h2 = "#{pluralize(@ev_case.errors.count, "error")} prohibited this Case from being saved:"
       ul
         - @ev_case.errors.full_messages.each do |message|
           li = message
 
-  / form separator
-  .w-100
-    hr.bg-info
-
-    #fields.form-row.anchor
-      .col-sm-2.field
+  .one.field
+    .required.field.eight.wide.column
+      .ui.labeled.input
+        .ui.label Verification
         = f.collection_select :verification_id, Verification.order(:last_name, :first_name, :middle_name, :born_on), :id, :id, readonly: @readonly
-      .col-sm-2.field
+  .three.fields
+    .required.field.four.wide.column
+      .ui.labeled.input
+        .ui.label First Name
         = f.text_field :first_name, label: 'First Name', readonly: @readonly
-      .col-sm-2.field
+    .required.field.four.wide.column
+      .ui.labeled.input
+        .ui.label Last Name
         = f.text_field :last_name, label: 'Last Name', readonly: @readonly
-      .col-sm-2.field
+    .required.field.four.wide.column
+      .ui.labeled.input
+        .ui.label Middle Name
         = f.text_field :middle_name, label: 'Middle Name', readonly: @readonly
-      .col-sm-2.field
+  .four.fields
+    .required.field.four.wide.column
+      .ui.labeled.input
+        .ui.label Citizenship Status
         = f.select :cit_status, EvCase.cit_status.options, label: 'Status', readonly: @readonly
-      .col-sm-2.field
+    .required.field.four.wide.column
+      .ui.labeled.input
+        .ui.label Birth Date
         = f.date_field :born_on, label: 'Date of Birth', readonly: @readonly
-      .col-sm-2.field
+    .required.field.four.wide.column
+      .ui.labeled.input
+        .ui.label SSN
         = f.text_field :ssn, label: 'SSN', readonly: @readonly
-      .col-sm-2.field
+    .required.field.four.wide.column
+      .ui.labeled.input
+        .ui.label Hire Date
         = f.date_field :hired_on, label: 'Date of Hire', readonly: @readonly
-      .col-sm-2.field
+  .three.fields
+    .required.field.five.wide.column
+      .ui.labeled.input
+        .ui.label Reverification Date
         = f.date_field :wae_on, label: 'WAE Date', readonly: @readonly
-      .col-sm-2.field
+    .required.field.four.wide.column
+      .ui.labeled.input
+        .ui.label Opened On
         = f.datetime_field :opened_on, label: 'Date Case Opened', readonly: @readonly
-      .col-sm-2.field
+    .required.field.four.wide.column
+      .ui.labeled.input
+        .ui.label Closed On
         = f.datetime_field :closed_on, label: 'Date Case Closed', readonly: @readonly
-      .col-sm-2.field
+  .two.fields
+    .required.field.six.wide.column
+      .ui.labeled.input
+        .ui.label Case Number
         = f.text_field :case_num, label: 'Case #', readonly: @readonly
-      .col-sm-2.field
+    .required.field.six.wide.column
+      .ui.labeled.input
+        .ui.label E-Verify Result
         = f.text_field :result, label: 'Result', readonly: @readonly
-      .col-sm-2.field
+  .two.fields
+    .required.field.six.wide.column
+      .ui.labeled.input
+        .ui.label Overdue Reason
         = f.text_field :overdue_reason, label: 'Overdue Reason', readonly: @readonly
-      .col-sm-2.field
+    .required.field.six.wide.column
+      .ui.labeled.input
+        .ui.label Overdue Reason Detail
         = f.text_field :overdue_reason_detail, label: 'Overdue Reason Details', readonly: @readonly
 
-  / form separator
-  .w-100
-    hr.bg-info
-  / submit or cancel
+  .ui.divider
+
   - if ! @readonly
-    .d-flex
-      .p-1
-        .actions = f.submit 'Save Changes', class: 'btn btn-success'
-      .p-1
-        = link_to 'Cancel', ev_cases_path, class: 'btn btn-danger'
-      .p-1
-        = link_to 'Show', @ev_case, class: 'btn btn-primary'
+    = link_to 'Show', @ev_case, class: 'ui teal button'
+    .ui.buttons
+      = link_to 'Cancel', ev_cases_path, class: 'ui brown button'
+      .or
+      = f.submit 'Save', class: 'ui primary button'
   - else
-    .d-flex
-      .p-1
-        = link_to 'Edit', edit_ev_case_path(@ev_case), class: 'btn btn-primary'
-      .p-1
-        = link_to 'Back to List', ev_cases_path, class: 'btn btn-info'
+    = link_to 'Edit', edit_ev_case_path(@ev_case), class: 'ui primary button'
+    = link_to 'Back to List', ev_cases_path, class: 'ui grey button'
