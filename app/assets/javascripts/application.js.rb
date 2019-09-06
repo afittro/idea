@@ -17,4 +17,7 @@ require 'datatables'
 
 `$('.ui.checkbox')
   .checkbox()
-;`
+;
+$(document).ready(function(){
+  $('.ui.accordion').accordion();
+});`

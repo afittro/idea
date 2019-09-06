@@ -30,7 +30,6 @@ html
       ;
   body class="controller-#{controller_name}"
     .ui.pointing.inverted.labeled.icon.menu style="background-color: #062f4f"
-      / .ui.seven.column.page.grid fix alignment with this back in after tabing it left one indent
       .header.item
         =link_to root_path
           i.lightbulb.outline.yellow.big.icon
@@ -56,9 +55,6 @@ html
       /   | More
       /   i.dropdown.icon
       /   .transition.hidden.menu
-      /     = link_to 'Document Types', document_types_path, class: "ui item#{' active' if current_page?(document_types_path)}"
-      /     = link_to 'EV Cases',       ev_cases_path,       class: "ui item#{' active' if current_page?(ev_cases_path)}"
-      /     .divider.ui
       /     = link_to 'Lists',     lists_path,     class: "ui item#{' active' if current_page?(lists_path)}"
       /     = link_to 'Mistakes',  mistakes_path,  class: "ui item#{' active' if current_page?(mistakes_path)}"
       /     = link_to 'Revisions', revisions_path, class: "ui item#{' active' if current_page?(revisions_path)}"
