@@ -16,7 +16,7 @@ gem 'opal-rails' # write javascript/jquery in *.js.rb files!
 gem 'paper_trail' # adds audit history - supported by rails admin
 gem 'paper_trail-association_tracking'
 gem 'pg', '>= 0.18', '< 2.0'
-gem 'puma', '~> 3.11'
+gem 'puma', '~> 4.3'
 gem 'rails', '~> 5.2.2', '>= 5.2.2.1'
 gem 'rails-ujs'
 gem 'rails_admin'
